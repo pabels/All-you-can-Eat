@@ -1,25 +1,130 @@
 <html>
-	<head>
-		<title>prueba</title>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <!--<title>ALL  YOU   CAN   EAT</title>-->
+    <script src="../bower_components/platform/platform.js"></script>
+  </script>
 
-		<link rel="import" href="mis-componentes/mi-basico.html">
-
-    </head>
-	
-	<body>
-		
-
-		<mi-basico>
-		
-		</mi-basico>
-	
-			
-	
-
-
-
-	</body>
+  <link rel="import" href="../bower_components/core-scaffold/core-scaffold.html">
+  <link rel="import" href="../bower_components/core-toolbar/core-toolbar.html">
+  <link rel="import" href="../bower_components/core-menu/core-menu.html">
+  <link rel="import" href="../bower_components/paper-item/paper-item.html">
+  <link rel="import" href="../lib/flatiron-director/flatiron-director.html"> 
+  <link rel="import" href="../bower_components/core-animated-pages/transitions/slide-from-right.html">
+  <link rel="import" href="../bower_components/core-animated-pages/core-animated-pages.html"> 
+  <link rel="import" href="../bower_components/core-icon-button/core-icon-button.html">
+  <link rel="shortcut icon" href="favicon.ico" />
 
 
+<style>
+      :host {
+      }
 
-</html>
+      core-animated-pages {
+        width: 85%;
+        height: 85%;
+        -webkit-user-select: none;
+        overflow: hidden;
+      }
+
+      core-animated-pages > * {
+        border-radius: 5px;
+        font-size: 50px;
+        background-color: white;
+      }
+
+      body /deep/ core-toolbar {
+        background-color: teal;
+        color: #fff;
+       font-family: sans-serif;
+
+      }
+
+      core-menu {
+        color: #01579b;
+        margin: 10px 0 0 0;
+      }
+
+      core-menu > paper-item {
+        transition: all 300ms ease-in-out;
+      }
+
+      core-menu > paper-item.core-selected {
+        background: #e1f5fe;
+      }
+
+      @media all and (max-width: 480px) {
+        core-animated-pages {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    </style>
+
+</head>
+<body unresolved fullbleed>
+  <template is="auto-binding" id="t">
+    <flatiron-director route="{{route}}" autoHash></flatiron-director>
+    <core-scaffold id="scaffold">
+  
+    <nav>
+      <core-toolbar>
+        <span>ALL YOU CAN EAT</span>
+      </core-toolbar>
+       <core-menu valueattr="hash" selected="{{route}}">
+       <template repeat="{{page in pages}}">
+          <paper-item icon="label{{route != page.hash ? '-outline' : ''}}"
+                     label="{{page.name}}" hash="{{page.hash}}">
+            <a href="#{{page.hash}}"></a>
+          </paper-item>
+        </template>
+      </core-menu>
+    </nav>
+     <core-toolbar tool flex>
+      <div flex></div>
+        <core-icon-button icon="search"></core-icon-button>
+      <core-icon-button icon="refresh"></core-icon-button>
+      <core-icon-button icon="add"></core-icon-button>
+    </core-toolbar>
+
+    <div layout horizontal center-center fit>
+      <core-animated-pages id="pages" selected="{{route}}" valueattr="hash"   transitions="slide-from-right">
+        <template repeat="{{page in pages}}">
+                 <section hash="{{page.hash}}" layout vertical center-center>
+                   <div>{{page.name}}</div>
+                </section>
+        </template>
+      </core-animated-pages>
+       
+    </div>
+   <!-- <post-list
+     <div id="list" >
+          <h1>ejemplo</h1>
+        </div>-->
+  
+  </core-scaffold>
+
+</template>
+<script>
+  var DEFAULT_ROUTE='main page';
+  var template = document.querySelector('template[is="auto-binding"]');
+  template.pages = [
+    {name: 'Restaurants', hash: 'restaurant'},
+    {name: 'Favourites', hash: 'favourites'}    
+  ];
+  template.addEventListener('template-bound', function(e) {
+  // Use URL hash for initial route. Otherwise, use the first page.
+  this.route = this.route || DEFAULT_ROUTE;
+ });
+
+  /*var list=document.querySelector('list');
+  list.addEventListener('main list', function() {
+    if(this.route == DEFAULT_ROUTE){
+    console.log();*/
+
+    
+</script>
+
+ </body>
+ </html>
