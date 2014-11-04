@@ -107,11 +107,13 @@
 
 </template>
 <script>
-  var DEFAULT_ROUTE='main page';
+  var DEFAULT_ROUTE='menu';
   var template = document.querySelector('template[is="auto-binding"]');
   template.pages = [
+    {name: 'Menu', hash: 'menu'},
     {name: 'Restaurants', hash: 'restaurant'},
-    {name: 'Favourites', hash: 'favourites'}    
+    {name: 'Favourites', hash: 'favourites'}
+
   ];
   template.addEventListener('template-bound', function(e) {
   // Use URL hash for initial route. Otherwise, use the first page.
