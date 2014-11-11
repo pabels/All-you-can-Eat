@@ -1,0 +1,40 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="restaurant-cart.html">
+<link rel="import" href="../post-service/post-service.html">
+<!--El attributes show crea una propiedad publica (show)-->
+<polymer-element name="restaurant-list" attributes="show"> 
+  <template>
+    <style>
+    :host {
+      display: block;
+      width: 100%;
+    }
+    post-card {
+      margin-bottom: 30px;
+    }
+    </style>
+<!--agrega un elemento de doble enlace de datos entre postservice y postlist-->
+
+    <post-service id="service" posts="{{posts}}">
+    </post-service>
+    
+    <div layout vertical center>
+<!--cada elemento del array posts , lo va llamar post-->
+
+      <template repeat="{{post in posts}}">
+        <restaurant-card>
+          <img src="{{post.avatar}}" width="70" height="70">
+          <h2>{{post.username}}</h2>
+          <p>{{post.text}}</p>
+        </restaurant-card>
+        
+       
+      </template>
+      
+    </div>
+  </template>
+  <script>
+  Polymer({});
+  </script>
+</polymer-element>
+
