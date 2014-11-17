@@ -1,37 +1,45 @@
 
 var express = require("express"),
     app = express(),
-    path = require("path"),
-    fs = require("fs"),
-    bodyParser  = require("body-parser"), // poder analizar el cuerpo de la peticion, si no lo tienes solo podras analizar la cabecera 
-    methodOverride = require("method-override");
-   
+   // path = require("path"),
+ //   fs = require("fs"),
+    bodyParser  = require("body-parser"), // Parsear con JSON. Poder analizar el cuerpo de la peticion, si no lo tienes solo podras analizar la cabecera 
+   // methodOverride = require("method-override"); //implementar metodos http
+    mongoose = require("mongoose");
+   // http     = require("http"),
+   // server   = http.createServer(app);
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(methodOverride());
-app.use(express.static(path.join(__dirname, '/../start')));//sirve estaticos (css, htmll....)
-//var router = express.Router();
+//app.use(methodOverride());
+//app.use(express.static(path.join(__dirname, '/../start')));
+//var basePath = path.join(__dirname, '/routes/');
 
-/*router.get('/', function(req, res) {
-   res.send("Hello World!");
-});*/
-
-var basePath = path.join(__dirname, '/routes/'); //leo el directorio express 
-fs.readdirSync(basePath).forEach(function(filename) {
+/*fs.readdirSync(basePath).forEach(function(filename) {
 	var basePathService = '/' + filename.replace(/\.js$/, '');
 	var serviceDefinition = basePath + filename;
 	app.use(basePathService, require(serviceDefinition));
+}); */
+
+
+app.get('/', function(req, res) {
+   res.send("Hello World!");
 }); 
 
+routes = require("./routes/restaurants")(app);
 
-//var ip = config.server.ip; poner una ip
-//var port = config.server.port;
-
-//app.use(router);
-
-app.listen(3000, function() { //callback
-  console.log("Node server running on http://localhost:3000");
+mongoose.connect('mongodb://localhost/restaurants', function(err, res) {
+    if(err) {
+      console.log('ERROR: connecting to Database. ' + err);
+    } else {
+      console.log('Connected to Database');
+    }
 });
 
+
+
+app.listen(8080);
+
+  console.log("Node server running on http://localhost:8080");
 
 module.exports = app;

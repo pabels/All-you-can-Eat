@@ -2,7 +2,6 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-  <!--<title>ALL  YOU   CAN   EAT</title>-->
     <script src="../bower_components/platform/platform.js"></script>
 
   <link rel="import" href="../bower_components/core-scaffold/core-scaffold.html">
@@ -13,25 +12,19 @@
   <link rel="import" href="../bower_components/core-animated-pages/transitions/slide-from-right.html">
   <link rel="import" href="../bower_components/core-animated-pages/core-animated-pages.html"> 
   <link rel="import" href="../bower_components/core-icon-button/core-icon-button.html">
-  <link rel="import" href="mis-componentes/restaurant-cart.html">
+  <link rel="import" href="mis-componentes/restaurant-list.html">
   <link rel="shortcut icon" href="favicon.ico" />
-    <link rel="import" href="mis-componentes/menu.html">
-
-    <link rel="import" href="mis-componentes/favorite.html">
-        <link rel="import" href="mis-componentes/restaurante.html">
-
-
-  
-
-
+  <link rel="import" href="mis-componentes/top-10.html">
+  <link rel="import" href="mis-componentes/favorite.html">
+  <link rel="import" href="mis-componentes/restaurante.html">
 
 <style>
       :host {
       }
 
       core-animated-pages {
-        width: 85%;
-        height: 85%;
+        width: 95%;
+        height: 95%;
         -webkit-user-select: none;
         overflow: hidden;
       }
@@ -113,12 +106,12 @@
 
 </template>
 <script>
-  var DEFAULT_ROUTE= 'menu';
+  var DEFAULT_ROUTE= 'restaurant';
   var template = document.querySelector('#t');
   template.pages = [
-    {name: 'Menu', hash: 'menu' },
     {name: 'Restaurants', hash: 'restaurant' },
-    {name: 'Favourites', hash: 'favourites'}
+    {name: 'Favourites', hash: 'favourites' },
+    {name: 'Top-10', hash: 'top-10' }
 
   ];
   template.addEventListener('template-bound', function(e) {
@@ -130,10 +123,10 @@
             scaffold.closeDrawer();
         }
     };
-    
+   // var component = template.pages
   
     
 </script>
 
  </body>
- </html>
+ </html>  

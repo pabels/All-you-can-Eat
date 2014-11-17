@@ -1,67 +1,97 @@
-var express = require("express");
-var router = express.Router();
+module.exports = function(app) {
 
-var restaurants = {};
-var numRests = 0;
+	var RestaurantR = require('../../model/restaurant.js');
 
- 
-router.post('/', createRestaurant);
-router.put('/:restaurantId', updateRestaurant);
-router.get('/:restaurantId', getRestaurant);
-router.delete('/:restaurantId', delRestaurant);
-router.get('/', getAll);
+	// get return all restaurants in the db
 
-
-//params: 
-
-router.param('restaurantId', checkRestaurantExists);
-
-function createRestaurant(req, res){
-	var restaurant = {
-		id: numRests,
-		name: req.body.name,
-		type: req.body.type,
-		menu: req.body.menu,
-		direction: req.body.direction
+	findAllRestaurantRs = function (req, res){
+		RestaurantR.find (function(err, restaurants){
+			if(!err){
+				res.send(restaurants);
+			}else{
+				console.log('Error:' + err);
+			}
+		});
 	};
-	restaurants[restaurant.id] = restaurant; //me creo un restaurante
-	numRests++; // aumento el num de restau creados
-	res.json(restaurant); // creo el obj y lo deevuelvo con json
-}
 
-function updateRestaurant(req, res){
-	var newRestaurant = {
-		id: req.params.restaurantId,
-		name: req.body.name,
-		type: req.body.type,
-		menu: req.body.menu,
-		direction: req.body.direction
+	// get return a restaurant with specified id
+	//req.params.id is the parameter that the browser is going to send
+
+	findById = function (req, res){
+		RestaurantR.findById (req.params.id, function(err, restaurant){
+			if(!err){
+				res.send(restaurant);
+			}else{
+				console.log('Error:' + err);
+			}
+		});
 	};
-	restaurants[req.params.restaurantId] = newRestaurant;
-	res.json(newRestaurant);
-}
 
-function delRestaurant(req, res){
-	delete restaurants[req.params.restaurantId];
-	res.send('restaurant' + req.params.restaurantId + 'has been removed');
-}
+	//post insert a new RestaurantR in the db
 
-function getRestaurant(req, res){
-	res.json(restaurants[req.params.restaurantId]);
-}
+	addRestaurantR = function (req, res){
+		 console.log('Post');
+		 console.log(req.body); // para ver el cuerpo de la peticion 
 
-function getAll(req, res){
-	res.json(restaurants);
-}
+		 var restaurant = new RestaurantR({
+		 	name:  req.body.name,
+  			type:  req.body.type,
+  			menu:  req.body.menu,
+  			direction: req.body.direction
+		 });
 
-function checkRestaurantExists(req , res, next, restaurantId){
-	if(restaurants[restaurantId]){
-		req.restaurant= restaurants[restaurantId];
-		next();
-	}else{
-	next(new Error( restaurantId + 'not exists'));
-}
-}
+		 restaurant.save (function(err){ // save the object in the db
+		 	if(!err){
+				console.log('Restaurant created');
+		 	}else{
+		 		console.log('Error' + err);
+		 	}
+		 });
+
+		 res.send(restaurant); 
+	}
+
+	//put  update a register already exists
+
+	updateRestaurantR = function(req, res){
+		RestaurantR.findById(req.params.id, function(err, restaurant){
+		    restaurant.name = req.body.name,
+			restaurant.type = req.body.type;
+			restaurant.menu = req.body.menu;
+			restaurant.direction = req.body.direction;
+
+			restaurant.save(function(err){
+				if(!err){
+					console.log('restaurant updated');
+		 		}else{
+		 			console.log('Error' + err);
+				}
+
+			res.send(restaurant);
+			});
+		});
+	}
+
+	//delete a RestaurantR with specified id
 
 
-module.exports = router;
+	deleteRestaurantR = function(req, res){
+		RestaurantR.findById(req.params.id, function (err, restaurant){
+			restaurant.remove(function(err){
+				if(!err){
+					console.log('restaurant removed');
+		 		}else{
+		 			console.log('Error' + err);
+				}
+			});
+		});
+
+	}
+
+	app.get('/restaurants', findAllRestaurantRs);
+	app.get('/restaurants/:id', findById);
+	app.post('/restaurants', addRestaurantR);
+	app.put('/restaurants/:id', updateRestaurantR);
+	app.delete('/restaurants/:id', deleteRestaurantR);
+
+}
