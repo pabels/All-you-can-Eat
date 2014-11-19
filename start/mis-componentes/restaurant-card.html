@@ -1,0 +1,35 @@
+
+<!--<link rel="stylesheet" type="text/css" href="restaurant-card.css"> -->
+
+<polymer-element name="restaurant-card" attributes="name paragraph img">
+
+  <template>
+    <style>
+    .card-header {
+      position : absolute;
+      background-color: pink;
+      padding: 0px;
+      margin: 10px;
+      margin-left: 0px;
+      width: 200%;
+      font-size: 1.2rem;
+      font-weight: 300;
+
+    }
+    
+    </style>
+   
+    <div class="card-header" >
+
+      <content select="name"><h1>{{name}}</h1> </content><br>
+      <content select="paragraph"><p>{{paragraph}}</p> </content><br>
+      <content select="img"> <img src="{{img}}"> </content>
+
+    </div>
+    
+    
+  </template>
+  <script>
+  Polymer({});
+  </script>
+</polymer-element>

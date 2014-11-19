@@ -1,6 +1,6 @@
 module.exports = function(app) {
-
-	var RestaurantR = require('../../model/restaurant.js');
+	var restaurantManager = require('../manager/restaurant');
+	//var RestaurantR = require('../../model/restaurant.js');
 
 	// get return all restaurants in the db
 
@@ -30,7 +30,11 @@ module.exports = function(app) {
 	//post insert a new RestaurantR in the db
 
 	addRestaurantR = function (req, res){
-		 console.log('Post');
+
+		restaurantManager.createRestaurant(function(err, result){
+			res.json(result);
+		});
+		/* console.log('Post');
 		 console.log(req.body); // para ver el cuerpo de la peticion 
 
 		 var restaurant = new RestaurantR({
@@ -48,7 +52,7 @@ module.exports = function(app) {
 		 	}
 		 });
 
-		 res.send(restaurant); 
+		 res.send(restaurant); */
 	}
 
 	//put  update a register already exists

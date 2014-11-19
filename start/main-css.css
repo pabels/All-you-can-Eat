@@ -1,0 +1,49 @@
+ :host {
+      }
+
+      core-animated-pages {
+        width: 95%;
+        height: 95%;
+        -webkit-user-select: none;
+        overflow: hidden;
+      }
+
+      core-animated-pages > * {
+        border-radius: 5px;
+        font-size: 50px;
+        background-color: white;
+        overflow: scroll;
+        background-color: teal;
+      }
+
+      body /deep/ core-toolbar {
+        background-color: teal;
+        color: #fff;
+       font-family: sans-serif;
+
+      }
+
+      core-menu {
+        color: #01579b;
+        margin: 10px 0 0 0;
+      }
+
+      core-menu > paper-item {
+        transition: all 300ms ease-in-out;
+      }
+
+      core-menu > paper-item.core-selected {
+        background: #e1f5fe;
+      }
+
+      #main-section{
+      	width: 100%;
+      	height: 100%;
+        margin-left: 0px;
+      }
+      @media all and (max-width: 480px) {
+        core-animated-pages {
+          width: 100%;
+          height: 100%;
+        }
+      }

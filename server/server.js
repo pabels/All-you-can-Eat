@@ -8,6 +8,8 @@ var express = require("express"),
     mongoose = require("mongoose");
    // http     = require("http"),
    // server   = http.createServer(app);
+    config = require('./util/config');
+
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -20,7 +22,7 @@ app.use(bodyParser.json());
 	var serviceDefinition = basePath + filename;
 	app.use(basePathService, require(serviceDefinition));
 }); */
-
+ 
 
 app.get('/', function(req, res) {
    res.send("Hello World!");
@@ -36,10 +38,13 @@ mongoose.connect('mongodb://localhost/restaurants', function(err, res) {
     }
 });
 
+var ip = config.server.ip;
+var port = config.server.port;
 
+app.listen(port, ip, function(){
+    console.log("Node server running on http://"+ip+ ":"+ port);
 
-app.listen(8080);
+});
 
-  console.log("Node server running on http://localhost:8080");
 
 module.exports = app;

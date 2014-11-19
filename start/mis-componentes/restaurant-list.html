@@ -1,40 +1,47 @@
-<link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="restaurant-cart.html">
-<link rel="import" href="../post-service/post-service.html">
-<!--El attributes show crea una propiedad publica (show)-->
-<polymer-element name="restaurant-list" attributes="show"> 
+ 
+<polymer-element name="restaurant-list">
   <template>
+
     <style>
-    :host {
-      display: block;
-      width: 100%;
-    }
-    post-card {
-      margin-bottom: 30px;
-    }
+      #restuarant-list{
+        border-style: solid;
+        border-color: red;
+        border-width: 10px; 
+      }
+
     </style>
-<!--agrega un elemento de doble enlace de datos entre postservice y postlist-->
+     <template repeat="{{item in restaurants}}">
+      <div id="restaurant-list">
+      <restaurant-card name="{{item.name}}" paragraph="{{item.paragraph}}" img="{{item.img}}">
+      </restaurant-card>
+      </div>
 
-    <post-service id="service" posts="{{posts}}">
-    </post-service>
+    </template> 
     
-    <div layout vertical center>
-<!--cada elemento del array posts , lo va llamar post-->
 
-      <template repeat="{{post in posts}}">
-        <restaurant-card>
-          <img src="{{post.logotype}}" width="70" height="70">
-          <h2>{{post.nameRestaurant}}</h2>
-          <p>{{post.text}}</p>
-        </restaurant-card>
-        
-       
-      </template>
-      
-    </div>
+    
+    
   </template>
-  <script>
-  Polymer({});
-  </script>
-</polymer-element>
 
+   <script>
+      
+
+        Polymer({
+          ready: function () {
+             this.restaurants=[
+              {name:"kfc", paragraph:"cosaa.....", img: "logo.png"},
+              {name:"elepizza",paragraph:"ciouiosauasoiuso.", img: "logo.png"},
+              {name:"zayaas",paragraph:"cblabalbakaba....", img: "logo.png"},
+              {name: "viernes" , paragraph: "hola ", img: "logo.png"},
+              {name: "viernes" , paragraph: "hola ", img: "logo.png"},
+              {name: "viernes" , paragraph: "hola ", img: "logo.png"},
+              {name: "viernes" , paragraph: "hola ", img: "logo.png"},
+              {name: "viernes" , paragraph: "hola ", img: "logo.png"}
+              ];
+          }
+   
+            
+        });
+    </script>
+
+</polymer-element>
