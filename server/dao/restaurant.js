@@ -1,8 +1,13 @@
 var db = require('../util/mongodb').db;
-var toObjectID = require('../util/mongodb').toObjectID;
-var col = db.bind('restaurant');
+//var col = db.bind('restaurant');
 
 function create(restaurant, callback){
-	this.save (restaurant, callback);
+	this.insert (restaurant, callback);
 }
 
+
+/*col.bind({
+	create: create
+
+});
+module.exports = col ;*/

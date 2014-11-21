@@ -1,0 +1,28 @@
+:host {
+      display: block;
+      position: relative;
+      background-color: red;
+      padding: 0px;
+      width: 100%;
+      font-size: 1.2rem;
+      font-weight: 300;
+    }
+    .card-header {
+      border-width: 10px;
+      border-color: red;
+
+    }
+    polyfill-next-selector { content: '.card-header name'; }
+    .card-header ::content name {
+     color: black;
+    }
+    polyfill-next-selector { content: '.card-header paragraph'; }
+    .card-header ::content paragraph {
+      color: red;
+    }
+
+    polyfill-next-selector { content: '.card-header img'; }
+    .card-header ::content img {
+      width: 70px;
+      height: 70px;
+    }
