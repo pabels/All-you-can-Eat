@@ -4,8 +4,7 @@ var mongoose = require('mongoose'),
 var RestaurantR = new Schema({
   name:      {type : String},
   type:      { type: String, enum: 
-  	       ['Italian', 'Chinese' , 'Mexican', 'American', 'Japanese']
-  	     },
+  	       ['Italian', 'Chinese', 'Mexican', 'American', 'Japanese'] },
   menu:      { type: String },
   direction: { type: String } 
 });

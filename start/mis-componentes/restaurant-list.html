@@ -1,23 +1,26 @@
  
-<polymer-element name="restaurant-list">
+<polymer-element name="restaurant-list" attributes="show">
   <template>
 
     <style>
       #restuarant-list{
         border-style: solid;
-        border-color: red;
-        border-width: 10px; 
+        border-width: 50px; 
+
       }
 
     </style>
      <template repeat="{{item in restaurants}}">
       <div id="restaurant-list">
-      <restaurant-card name="{{item.name}}" paragraph="{{item.paragraph}}" img="{{item.img}}">
+      <restaurant-card name="{{item.name}}" paragraph="{{item.paragraph}}" img="{{item.img}}"
+       favorite="{{item.favorite}}" on-favorite-tap="{{handleFavorite}}" hidden?="{{show == "favorites" && !item.favorite}}">
       </restaurant-card>
       </div>
 
     </template> 
-    
+    <!-- favorite{item.favorite} bindea el valor de las card favoritas al valor del array del post service 
+    atributo on favorit tap  establece un controlador para el evento favorite tap de restaurant-card 
+    hidden switchea entre todos los card y los favoritos de las etiquetas  -->
 
     
     

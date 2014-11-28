@@ -1,3 +1,4 @@
+  <link rel="import" href="../../bower_components/core-icon-button/core-icon-button.html">
 
 <polymer-element name="restaurant-card" attributes="name paragraph img">
 
@@ -7,32 +8,83 @@
       display: block;
       position: relative;
       background-color: grey;
-      width: 100%;
       border-style: solid;
       border-radius: 24px;
       border-color: black;
       border-width: 3px;
       margin-top: 10px;
+      padding: 9px;
+      width: 620px;
     }
     
     img{
-      width: 70px;
-      height: 70px;
+      width: 200px;
+      height: 200px;
       margin-left: 10px;
+      border-radius: 30%;
+      margin: 10px;
+      float: left;
     }
-   
+    h1{
+     display: block;
+      font-size: 50px;
+      font-weight: bold;
+      margin-top: 15px;
+    }   
+      
+    p{
+      float: left;
+      font-size: 30px;
+      margin-bottom: 6px;
+    }
+    #muevete{
+      width: 350px;
+      margin-left: 20px;
+    }
+    core-icon-button{
+      position: absolute;
+      top: 3px;
+      right: 3px;
+      color: black;
+
+    }
+    /*:host([favorite]) core-icon-button {
+      color: #da4336;
+    }*/
    </style>
     <div class="card-header" layout horizontal center>
       <img src="./mis-componentes/{{img}}">
-      <h1>{{name}}</h1><br>
-      <p>{{paragraph}}</p><br>
-       
-
+        <div id="muevete">
+            <h1>{{name}}</h1>
+            <p>{{paragraph}}</p>
+         </div>
     </div>
-    
+
+    <core-icon-button id="favicon" icon="star" on-tap="{{changeColor}}"> </core-icon-button>
+
     
   </template>
   <script>
-  Polymer({});
+  Polymer({
+     
+      changeColor: function(){
+        $('#favicon').on('click', function(){
+          $('#favicon').css('color', 'red');
+        })
+      }
+     /*  publish: { //para hacer publicos los atributos
+      favorite: { //por defecto la propiedad favorite es false y refleja el significado del atributo favorito es modificado en el dom siempre q la propiedad value cambie
+        value: false,
+        reflect: true
+      }
+    },
+    favoriteTapped: function(event, detail, sender) { //evento q se va a ejecutar cuando se pulse el icono. alterna el estado de la propiedad favorite (this.favorite) y dispara un evento personalizado usado en el this.fire, fire metodo q add  al prototipo d cada elem
+      this.favorite = !this.favorite;
+      this.fire('favorite-tap'); 
+      
+    }*/
+
+
+  })
   </script>
 </polymer-element>
