@@ -9,6 +9,8 @@ module.exports = function (app) {
 
 		restaurantManager.create({
 		 	name:  req.body.name,
+		 	paragraph: req.body.paragraph,
+  			images:    req.body.images,
   			type:  req.body.type,
   			menu:  req.body.menu,
   			direction: req.body.direction
@@ -92,6 +94,8 @@ module.exports = function (app) {
 	updateRestaurant = function(req, res){
 		restaurantId = req.params.id ;
 		restaurantManager.updateRestaurant(restaurantId , {name:  req.body.name,
+			 paragraph: req.body.paragraph,
+ 			 images:   req.body.images,
   			type:  req.body.type,
   			menu:  req.body.menu,
   			direction: req.body.direction},function(err) { 

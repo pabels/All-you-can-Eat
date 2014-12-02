@@ -5,6 +5,8 @@
  
     <script src="../bower_components/platform/platform.js"></script>
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <!--<script src="./util/util.js"></script>-->
+
 
   <link rel="stylesheet" type="text/css" href="main-css.css">  
   <link rel="import" href="../bower_components/core-scaffold/core-scaffold.html">
@@ -15,6 +17,9 @@
   <link rel="import" href="../bower_components/core-animated-pages/transitions/slide-from-right.html">
   <link rel="import" href="../bower_components/core-animated-pages/core-animated-pages.html"> 
   <link rel="import" href="../bower_components/core-icon-button/core-icon-button.html">
+    <link rel="import" href="../bower_components/paper-button/paper-button.html">
+  <link rel="import" href="../bower_components/paper-input/paper-input.html">
+
 
   <link rel="import" href="mis-componentes/restaurant-list.html">
   <link rel="import" href="mis-componentes/restaurant-card.html">
@@ -22,6 +27,8 @@
   <link rel="shortcut icon" href="favicon.ico" />
   <link rel="import" href="mis-componentes/top-10.html">
   <link rel="import" href="mis-componentes/favorite.html">
+
+
 
 
 </head>
@@ -53,6 +60,7 @@
        <core-animated-pages selected="{{route}}" valueattr="hash" transitions="slide-from-right">
             <section hash="restaurants" layout vertical center-center>      
               <restaurant-list></restaurant-list>
+
             </section>
 
             <section  hash="favorites">
@@ -61,6 +69,15 @@
 
             <section  hash="top-10">
                <h1>miau</h1>
+            </section>
+            <section  hash="register">
+              <div  horizontal center-justified layout>
+                 <paper-input label="Your Name" id="name" floatingLabel="true"></paper-input>
+                 <paper-input label="Your Paragraph" id="paragraph" floatingLabel="true"></paper-input>
+                </div>
+              <div  horizontal center-justified layout>
+                 <paper-button id="boton">enviar</paper-button> 
+              </div>
             </section>
        </core-animated-pages>
      </div>
@@ -72,15 +89,16 @@
 <script>
   var DEFAULT_ROUTE= 'restaurants';
   var template = document.querySelector('#t');
-  window.addEventListener('polymer-ready', function() {
+ /* window.addEventListener('polymer-ready', function() {
     var div = document.getElementById('shower');
   
     
-  })
+  })*/
   template.pages = [
-    {name: 'Restaurants', hash: 'restaurants', component: 'blabla' },
-    {name: 'Favourites', hash: 'favorites', component: 'document.createElement("favorite")'},
-    {name: 'Top-10', hash: 'top-10', component: 'top-10'}
+    {name: 'Restaurants', hash: 'restaurants' },
+    {name: 'Favourites', hash: 'favorites'},
+    {name: 'Top-10', hash: 'top-10'},
+    {name: 'Register', hash: 'register'}
 
   ];
   template.addEventListener('template-bound', function(e) {
@@ -92,6 +110,22 @@
             scaffold.closeDrawer();
         }
     };
+
+     $("#boton").click(function(){
+
+        var nameString = $("#name").val();
+        var  paragraphString= $("#paragraph").val();
+        alert("Tu restaurante ha sido añadido, dirigete a la lista de restaurantes =) ")
+
+        $.post('/restaurants', { name : nameString,
+                 paragraph : paragraphString} ).done (function(data){
+                  console.log(data.name + data.paragraph);
+                 }).fail(function(){
+                  console.log("error");
+                 })
+     });
+
+   
     
 </script>
 

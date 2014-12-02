@@ -12,7 +12,7 @@
     </style>
      <template repeat="{{item in restaurants}}">
       <div id="restaurant-list">
-      <restaurant-card name="{{item.name}}" paragraph="{{item.paragraph}}" img="{{item.img}}"
+      <restaurant-card name="{{item.name}}" paragraph="{{item.paragraph}}" img="{{item.images}}"
        favorite="{{item.favorite}}" on-favorite-tap="{{handleFavorite}}" hidden?="{{show == "favorites" && !item.favorite}}">
       </restaurant-card>
       </div>
@@ -31,16 +31,16 @@
 
         Polymer({
           ready: function () {
-             this.restaurants=[
-              {name:"kfc", paragraph:"cosaa.....", img: "logo.png"},
-              {name:"elepizza",paragraph:"ciouiosauasoiuso.", img: "logo.png"},
-              {name:"zayaas",paragraph:"cblabalbakaba....", img: "logo.png"},
-              {name: "viernes" , paragraph: "hola ", img: "logo.png"},
-              {name: "viernes" , paragraph: "hola ", img: "logo.png"},
-              {name: "viernes" , paragraph: "hola ", img: "logo.png"},
-              {name: "viernes" , paragraph: "hola ", img: "logo.png"},
-              {name: "viernes" , paragraph: "hola ", img: "logo.png"}
-              ];
+            var that=this;
+
+            
+              $.get('/restaurants/',function(data){
+                that.restaurants= data;
+               
+
+
+              });
+              console.log(that.restaurants);
           }
    
             

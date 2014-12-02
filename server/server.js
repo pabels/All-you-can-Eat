@@ -1,15 +1,18 @@
 
 var express = require("express"),
     app = express(),
-
+    path = require('path');
     bodyParser  = require("body-parser"), // Parsear con JSON. Poder analizar el cuerpo de la peticion, si no lo tienes solo podras analizar la cabecera 
     mongoose = require("mongoose");
+    fs = require('fs');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, '../')));
+
 
 app.get('/', function (req, res) {
-   res.send ("Hello World!");
+   res.send ("Go to start");
 }); 
 
 routes = require("./routes/restaurants")(app);
