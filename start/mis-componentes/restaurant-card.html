@@ -7,45 +7,48 @@
     :host {
       display: block;
       position: relative;
-      background-color: grey;
-      border-style: solid;
-      border-radius: 24px;
+      background-color: lightyellow;
+      border-style: inherit;
+      border-radius: 23px;
       border-color: black;
       border-width: 3px;
       margin-top: 10px;
       padding: 9px;
       width: 620px;
+      font-family: 'Allura-Regular';
     }
     
-    images{
-      width: 200px;
-      height: 200px;
-      margin-left: 10px;
-      border-radius: 30%;
-      margin: 10px;
+    img{
+      margin-left: 20px;
+      border-radius: 11px;
+      width: 150px;
+      height: 150px;
       float: left;
     }
     h1{
      display: block;
-      font-size: 50px;
+      font-size: 36px;
       font-weight: bold;
       margin-top: 15px;
+      font-family: Allura-Regular;
+
     }   
       
     p{
       float: left;
-      font-size: 30px;
+      font-size: 25px;
       margin-bottom: 6px;
+
     }
     #muevete{
       width: 350px;
-      margin-left: 20px;
+      margin-left: 35px;
+      text-align: center;
     }
     core-icon-button{
       position: absolute;
       top: 3px;
       right: 3px;
-      color: black;
 
     }
     /*:host([favorite]) core-icon-button {
@@ -53,36 +56,44 @@
     }*/
    </style>
     <div class="card-header" layout horizontal center>
-      <img src="./images/{{images}}">
+      <img src="../images/logo.png" >
         <div id="muevete">
             <h1>{{name}}</h1>
             <p>{{paragraph}}</p>
          </div>
     </div>
 
-    <core-icon-button id="favicon" icon="star" on-tap="{{changeColor}}"> </core-icon-button>
+    <core-icon-button id="favicon" icon="star" on-click="{{setFavorite}}"> </core-icon-button>
 
     
   </template>
   <script>
-  Polymer({
+
      
-      changeColor: function(){
-        $('#favicon').on('click', function(){
-          $('#favicon').css('color', 'red');
-        })
+      var favorites = [];
+       function isFavorite(array, item){
+        for(var i=0;i<array.length;i++){
+          if(item===array[i]){
+            return false;
+          }
+        }
+        return true;
       }
-     /*  publish: { //para hacer publicos los atributos
-      favorite: { //por defecto la propiedad favorite es false y refleja el significado del atributo favorito es modificado en el dom siempre q la propiedad value cambie
-        value: false,
-        reflect: true
+
+  Polymer({
+
+        setFavorite: function(){
+          var color = this.$.favicon.style.color==='black' ? 'red' : 'black';
+          this.$.favicon.style.color=color;
+          if(isFavorite(favorites,this)){
+            favorites.push(this);
+            var a = this;
+            debugger;
+          }else{
+            console.log('element is currently marked as favorite');
+          }
       }
-    },
-    favoriteTapped: function(event, detail, sender) { //evento q se va a ejecutar cuando se pulse el icono. alterna el estado de la propiedad favorite (this.favorite) y dispara un evento personalizado usado en el this.fire, fire metodo q add  al prototipo d cada elem
-      this.favorite = !this.favorite;
-      this.fire('favorite-tap'); 
-      
-    }*/
+
 
 
   })

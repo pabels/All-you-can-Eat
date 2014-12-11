@@ -1,5 +1,10 @@
  :host {
       }
+      @font-face {
+       font-family: 'Allura-Regular';
+       src: url('./fonts/Allura-Regular.otf') format("truetype");
+      }
+     
 
       core-animated-pages {
         width: 95%;
@@ -19,56 +24,40 @@
       body /deep/ core-toolbar {
         background-color: teal;
         color: #fff;
-       font-family: sans-serif;
+       font-family: 'Allura-Regular';
 
       }
 
       core-menu {
-        color: #01579b;
+        color: lightseagreen;
         margin: 10px 0 0 0;
+        font-family: 'Allura-Regular';
+        font-size: 24px;
       }
 
       core-menu > paper-item {
         transition: all 300ms ease-in-out;
       }
-
+      paper-item{
+        font-size: 24px;
+      }
       core-menu > paper-item.core-selected {
         background: #e1f5fe;
+        font-size: 24px;
       }
 
       #main-section{
       	width: 100%;
       	height: 100%;
       }
-      paper-input{
-        color: white;
-        text-align: center;
-        width: 9em;
-
-      }
-      paper-button{
-        display: inline-block;
-        position: relative;
-        box-sizing: border-box;
-        min-width: 5.14em;
-        padding: 0.7em 0.57em;
-        margin: 0 0.29em;
-        background: lightseagreen;
-        color: white;
-        opacity: 0.7;
-        text-align: center;
-        font: inherit;
-        text-transform: lowercase;
-        outline: none;
-        border-radius: 20%;
-        -webkit-user-select: none;
-        user-select: none;
-        cursor: pointer;
-        z-index: 0;
-      }
+      
       @media all and (max-width: 480px) {
         core-animated-pages {
           width: 100%;
           height: 100%;
         }
       }
+      span{
+font-size: 38px;
+      }
+      

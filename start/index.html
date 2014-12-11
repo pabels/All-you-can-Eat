@@ -17,16 +17,18 @@
   <link rel="import" href="../bower_components/core-animated-pages/transitions/slide-from-right.html">
   <link rel="import" href="../bower_components/core-animated-pages/core-animated-pages.html"> 
   <link rel="import" href="../bower_components/core-icon-button/core-icon-button.html">
-    <link rel="import" href="../bower_components/paper-button/paper-button.html">
-  <link rel="import" href="../bower_components/paper-input/paper-input.html">
+   
 
 
   <link rel="import" href="mis-componentes/restaurant-list.html">
   <link rel="import" href="mis-componentes/restaurant-card.html">
 
   <link rel="shortcut icon" href="favicon.ico" />
-  <link rel="import" href="mis-componentes/top-10.html">
+  <link rel="import" href="mis-componentes/top-10.html">  
+  <link rel="import" href="mis-componentes/formulario-register.html">
+
   <link rel="import" href="mis-componentes/favorite.html">
+
 
 
 
@@ -39,7 +41,7 @@
   
     <nav>
       <core-toolbar>
-        <span>ALL YOU CAN EAT</span>
+        <span>All you can eat</span>
       </core-toolbar>
        <core-menu valueattr="hash" selected="{{route}}">
        <template repeat="{{page in pages}}">
@@ -59,25 +61,19 @@
      <div layout horizontal center-center fit>
        <core-animated-pages selected="{{route}}" valueattr="hash" transitions="slide-from-right">
             <section hash="restaurants" layout vertical center-center>      
-              <restaurant-list></restaurant-list>
+              <restaurant-list id="restaurantList"></restaurant-list>
 
             </section>
 
             <section  hash="favorites">
-                <h1>2</h1> 
+                <h1>A restaurant marked as favorite</h1> 
             </section >
 
             <section  hash="top-10">
-               <h1>miau</h1>
+               <h1>Ranking of restaurants with more votes</h1>
             </section>
             <section  hash="register">
-              <div  horizontal center-justified layout>
-                 <paper-input label="Your Name" id="name" floatingLabel="true"></paper-input>
-                 <paper-input label="Your Paragraph" id="paragraph" floatingLabel="true"></paper-input>
-                </div>
-              <div  horizontal center-justified layout>
-                 <paper-button id="boton">enviar</paper-button> 
-              </div>
+              <formulario-register> </formulario-register>
             </section>
        </core-animated-pages>
      </div>
@@ -111,21 +107,9 @@
         }
     };
 
-     $("#boton").click(function(){
 
-        var nameString = $("#name").val();
-        var  paragraphString= $("#paragraph").val();
-        alert("Tu restaurante ha sido añadido, dirigete a la lista de restaurantes =) ")
 
-        $.post('/restaurants', { name : nameString,
-                 paragraph : paragraphString} ).done (function(data){
-                  console.log(data.name + data.paragraph);
-                 }).fail(function(){
-                  console.log("error");
-                 })
-     });
-
-   
+   console.log(document.getElementById('restaurantList'));
     
 </script>
 

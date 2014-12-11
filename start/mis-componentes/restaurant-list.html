@@ -12,8 +12,7 @@
     </style>
      <template repeat="{{item in restaurants}}">
       <div id="restaurant-list">
-      <restaurant-card name="{{item.name}}" paragraph="{{item.paragraph}}" img="{{item.images}}"
-       favorite="{{item.favorite}}" on-favorite-tap="{{handleFavorite}}" hidden?="{{show == "favorites" && !item.favorite}}">
+      <restaurant-card name="{{item.name}}" paragraph="{{item.paragraph}}" img="{{item.images}}" >
       </restaurant-card>
       </div>
 
@@ -32,16 +31,14 @@
         Polymer({
           ready: function () {
             var that=this;
-
             
               $.get('/restaurants/',function(data){
+                data.reverse();
                 that.restaurants= data;
-               
-
-
+                console.log(that.restaurants);
               });
-              console.log(that.restaurants);
           }
+
    
             
         });
