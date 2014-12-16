@@ -1,6 +1,6 @@
   <link rel="import" href="../../bower_components/core-icon-button/core-icon-button.html">
 
-<polymer-element name="restaurant-card" attributes="name paragraph images">
+<polymer-element name="restaurant-card" attributes="name paragraph images id">
 
   <template>
    <style>
@@ -88,11 +88,13 @@
           if(isFavorite(favorites,this)){
             favorites.push(this);
             var a = this;
-            debugger;
+            //debugger;
           }else{
             console.log('element is currently marked as favorite');
           }
-      }
+      },
+
+     // id:"";
 
 
 

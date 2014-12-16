@@ -4,7 +4,7 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
  
     <script src="../bower_components/platform/platform.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="./util/jquery-1.11.1.js"></script>
     <!--<script src="./util/util.js"></script>-->
 
 
@@ -26,7 +26,7 @@
   <link rel="shortcut icon" href="favicon.ico" />
   <link rel="import" href="mis-componentes/top-10.html">  
   <link rel="import" href="mis-componentes/formulario-register.html">
-
+  <link rel="import" href="mis-componentes/formulario-updated.html">
   <link rel="import" href="mis-componentes/favorite.html">
 
 
@@ -45,7 +45,7 @@
       </core-toolbar>
        <core-menu valueattr="hash" selected="{{route}}">
        <template repeat="{{page in pages}}">
-          <paper-item icon="label{{route != page.hash ? '-outline' : ''}}" label="{{page.name}}" hash="{{page.hash}}" on-tap="{{restaurants-tapped}}">
+          <paper-item icon="label{{route != page.hash ? '-outline' : ''}}" label="{{page.name}}" hash="{{page.hash}}" onclick=refresh(this)>
             <a href="#{{page.hash}}"></a>
           </paper-item>
         </template>
@@ -75,6 +75,9 @@
             <section  hash="register">
               <formulario-register> </formulario-register>
             </section>
+             <section  hash="updated">
+              <formulario-updated> </formulario-updated>
+            </section>
        </core-animated-pages>
      </div>
   
@@ -94,7 +97,9 @@
     {name: 'Restaurants', hash: 'restaurants' },
     {name: 'Favourites', hash: 'favorites'},
     {name: 'Top-10', hash: 'top-10'},
-    {name: 'Register', hash: 'register'}
+    {name: 'Register', hash: 'register'},
+    {name: 'Update', hash: 'updated'}
+
 
   ];
   template.addEventListener('template-bound', function(e) {
@@ -109,7 +114,14 @@
 
 
 
-   console.log(document.getElementById('restaurantList'));
+   console.log(document.getElementById('restaurantList')+"soooy lista");
+
+   function refresh(that){
+  var list=document.getElementById('restaurantList');
+  //console.log(list);
+  list.ready();
+ 
+}
     
 </script>
 

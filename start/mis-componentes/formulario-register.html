@@ -35,8 +35,9 @@
     </style>
     
   		<div  horizontal center-justified layout>
-             <paper-input label="Your Name" id="name" floatingLabel="true"></paper-input>
-             <paper-input label="Your Paragraph" id="paragraph" floatingLabel="true"></paper-input>
+             
+             <paper-input label="Your Restaurant" id="name" floatingLabel="true"></paper-input>
+             <paper-input label="Your paragraph" id="paragraph" floatingLabel="true"></paper-input>
         </div>
         <div  horizontal center-justified layout>
               <paper-button id="boton" on-tap="{{request}}">enviar</paper-button> 
@@ -47,7 +48,6 @@
 
 <script>
       
-
    Polymer({
 
         request: function(){
@@ -57,13 +57,14 @@
         var  paragraphString= this.$.paragraph.value;
 
         $.post('/restaurants', { name : nameString,
-                 paragraph : paragraphString} ).done (function(data){
+                 paragraph : paragraphString , type: "American" , menu : "", direction : "" } ).done (function(data){
                   console.log(data.name + data.paragraph);
 
                   alert("Tu restaurante ha sido añadido, dirigete a la lista de restaurantes =) ");
                  }).fail(function(){
                   console.log("error");
                  })
+         this.fire('restaurant-created'); //evento que recoje restaurant list para llamar al ready y actualizarse
         
         }
         /*var nameString = this.$.name.value;

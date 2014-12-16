@@ -11,8 +11,8 @@
 
     </style>
      <template repeat="{{item in restaurants}}">
-      <div id="restaurant-list">
-      <restaurant-card name="{{item.name}}" paragraph="{{item.paragraph}}" img="{{item.images}}" >
+      <div id="restaurant-list" on-restaurant-created="{{ready}}">
+      <restaurant-card name="{{item.name}}" paragraph="{{item.paragraph}}" img="{{item.images}}" id="{{item._id}}" >
       </restaurant-card>
       </div>
 
@@ -35,11 +35,15 @@
               $.get('/restaurants/',function(data){
                 data.reverse();
                 that.restaurants= data;
-                console.log(that.restaurants);
+    
+                
               });
+          },
+          restaurantList:function(){
+            return this.restaurants;
           }
 
-   
+      
             
         });
     </script>
