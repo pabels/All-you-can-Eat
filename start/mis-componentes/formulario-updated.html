@@ -48,8 +48,8 @@ margin-top: -62px;
              
         </div>
         <div  id="2" horizontal center-justified layout>
-             <paper-input label="new Restaurant" id="edit_name" floatingLabel="true"></paper-input>
-             <paper-input label="Edit paragraph" id="edit_paragraph" floatingLabel="true"></paper-input>
+           <paper-input label="new Restaurant" id="edit_name" floatingLabel="true"></paper-input>
+           <paper-input label="Edit paragraph" id="edit_paragraph" floatingLabel="true"></paper-input>
         </div>
         <div  horizontal center-justified layout>
               <paper-button id="boton" on-tap="{{modify}}">modifica</paper-button> 
@@ -62,16 +62,13 @@ margin-top: -62px;
       
 function getRestaurant(data){
 
+  var old_name=this.$.old_name.value;
+  var id="";
 
- var inp=this.$.old_name.value;
-
- var id="";
- var mytype="";
- var mymenu="";
- var mydirection="";
 
   for(var i=0;i<data.length;i++){
-    if(data[i].name == inp){
+
+    if(data[i].name == old_name){
       var restaurantPut={
         name : this.$.edit_name.value,
         paragraph : this.$.edit_paragraph.value,
@@ -79,57 +76,38 @@ function getRestaurant(data){
         direction: data[i].direction,
         menu:data[i].menu
       };
-
       id=data[i]._id;
     }
   }
+
   restaurantPut=JSON.stringify(restaurantPut);
   var url='/restaurants/'+id;
 
-      $.ajax({
-                type: "PUT",
-                url: url,
-                data: restaurantPut,
-                contentType: "application/json; charset=utf-8",
-                success: function (result) {
-                    console.log(result+"    soy suceess");
-                    alert("Restaurant Updated");
-   
-            
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    alert(xhr.responseText);
-                    
-                }
-            });
-
-
-
-
- console.log(restaurantPut+"     restauuurants");
-
+  $.ajax({
+    type: "PUT",
+    url: url,
+    data: restaurantPut,
+    contentType: "application/json; charset=utf-8",
+    success: function (result) {
+      console.log(result);
+      alert("Restaurant Updated");
+    },
+    error: function (xhr, ajaxOptions, thrownError) {
+      alert(xhr.responseText);
+    }
+  });
 }
 
-   Polymer({
-    modify: function(){
-        var that=this;
-            
-              $.get('/restaurants/',function(data){
-                data.reverse();
-                that.restaurants= data;
-                getRestaurant.bind(that)(data);
-                
+Polymer({
+  modify: function(){
+    var that=this;
+    $.get('/restaurants/',function(data){
+      data.reverse();
+      that.restaurants= data;
+      getRestaurant.bind(that)(data);
+    });
+  }
+});
 
-            });
-
-    }
-  
-                
-
-
-
-
-        
-   });
-  </script>
+</script>
 </polymer-element>

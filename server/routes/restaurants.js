@@ -3,14 +3,13 @@ module.exports = function (app) {
 	//var RestaurantR = require('../../model/restaurant.js');
 	var restaurantManager = require('../manager/restaurant');
 
-	//post insert a new RestaurantR in the db
 
 	function addRestaurantR(req, res) {
 
 		restaurantManager.create({
 		 	name:  req.body.name,
 		 	paragraph: req.body.paragraph,
-  			images:    req.body.images,
+  			image:    req.body.image,
   			type:  req.body.type,
   			menu:  req.body.menu,
   			direction: req.body.direction
@@ -26,7 +25,6 @@ module.exports = function (app) {
         });
 	}
 
-	// get return all restaurants in the db
 
 	function findAllRestaurantRs (req, res){
 		restaurantManager.findAll(function(err, restaurants ) { 
@@ -40,19 +38,6 @@ module.exports = function (app) {
         });
     }
 
-
-	/*/	RestaurantR.find (function(err, restaurants){
-			if(!err){
-				res.send(restaurants);
-			}else{
-					console.log('Error' + err);
-			 		res.status(500).send('Error');
-			}
-		});
-	};
-	*/
-	// get return a restaurant with specified id
-	//req.params.id is the parameter that the browser is going to send
 
 	function findById(req, res){
 		var restaurantId = req.params.id;
@@ -68,34 +53,13 @@ module.exports = function (app) {
 		});
 
 	}
-	/*findById = function (req, res){
-		RestaurantR.findById (req.params.id, function(err, restaurant){
-			if(!err){
-				res.send(restaurant);
-			}else{
-				console.log('Error:' + err);
-			}
-		});
-	};
-*/
 	
-	//put  update a register already exists
-	/*function updateRestaurant(req, res){
-		var restaurantId = req.params.id;
-		restaurantManager.findById(restaurantId, function(err, restaurant){
-		   { restaurant.name = req.body.name,
-			restaurant.type = req.body.type;
-			restaurant.menu = req.body.menu;
-			restaurant.direction = req.body.direction;
-			
-
-		});
-	}*/
+	
 	updateRestaurant = function(req, res){
 		restaurantId = req.params.id ;
 		restaurantManager.updateRestaurant(restaurantId , {name:  req.body.name,
 			 paragraph: req.body.paragraph,
- 			 images:   req.body.images,
+ 			 image:   req.body.image,
   			type:  req.body.type,
   			menu:  req.body.menu,
   			direction: req.body.direction},function(err) { 
