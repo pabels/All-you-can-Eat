@@ -1,0 +1,66 @@
+<polymer-element name="restaurant-model">
+  <template>
+  </template>
+
+
+ <script>
+      
+
+
+		(function() {
+			var base = '/restaurants/';
+			
+			function doAjax(options, success, error) {
+				options.type = options.type || 'GET';
+				options.url = base + (options.url || '');
+				options.dataType = options.dataType || 'json';
+				options.contentType = options.contentType || 'application/json; charset=UTF-8';
+				options.success = success;
+				options.error = (typeof error === 'function') ? error : 'error';
+
+				$.ajax(options);
+			}
+
+			var restaurants;
+
+			Polymer('restaurant-model', {
+				created: function() {
+					if (!restaurants) {
+						doAjax({}, function(data) {
+							 data.reverse();
+                			restaurants= data;
+                			
+                			this.restaurants = restaurants; // sirve para q la var restaurants sea accesible desde fuera de restaurant model
+    
+						}.bind(this));
+					}
+				}/*,
+				newScore: function() {
+					doAjax({type: 'POST'}, function(data) {
+						this.scores.push(data);
+					}.bind(this));
+				},
+				destroyScore: function(score) {
+					doAjax({type: 'DELETE', url: '/' + score._id, dataType: 'text'}, function(data) {
+						var i = this.scores.indexOf(score);
+						if (i >= 0) {
+							this.scores.splice(i, 1);
+						}
+					}.bind(this));
+				},
+				setScore: function(score, team, points) {
+					var url = '/' + score._id + '/set';
+					var data = {
+						team: team,
+						points: points
+					};
+					doAjax({type: 'PUT', url: url, data: JSON.stringify(data)}, function(result) {
+						score[team] = points;
+					}.bind(this));
+				}*/
+			});
+		}());
+    </script>
+
+
+</polymer-element>
