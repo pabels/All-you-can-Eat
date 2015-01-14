@@ -1,4 +1,4 @@
- 
+ <link rel="import" href="restaurant-model.html">
 <polymer-element name="restaurant-list" attributes="show">
   <template>
 
@@ -10,17 +10,15 @@
       }
 
     </style>
-     <template repeat="{{item in restaurants}}">
+    <restaurant-model id="restaurantModel"></restaurant-model>
+     <template repeat="{{restaurantList.restaurants}}">
       <div id="restaurant-list" on-restaurant-created="{{ready}}">
-      <restaurant-card name="{{item.name}}" paragraph="{{item.paragraph}}" img="{{item.images}}" id="{{item._id}}" >
+      <restaurant-card restaurantObject="{{}}" >
       </restaurant-card>
       </div>
 
     </template> 
-    <!-- favorite{item.favorite} bindea el valor de las card favoritas al valor del array del post service 
-    atributo on favorit tap  establece un controlador para el evento favorite tap de restaurant-card 
-    hidden switchea entre todos los card y los favoritos de las etiquetas  -->
-
+   
     
     
   </template>
@@ -30,21 +28,13 @@
 
         Polymer({
           ready: function () {
-            var that=this;
-            
-              $.get('/restaurants/',function(data){
-                data.reverse();
-                that.restaurants= data;
-    
-                
-              });
-          },
-          restaurantList:function(){
-            return this.restaurants;
-          }
 
-      
+        
+             this.restaurantList = this.$.restaurantModel; // se carga antes el model q la llamada a ajax por eso cogemos todo el elemento antes q la var 
             
+            
+          }
+          
         });
     </script>
 

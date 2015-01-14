@@ -1,6 +1,6 @@
   <link rel="import" href="../../bower_components/core-icon-button/core-icon-button.html">
 
-<polymer-element name="restaurant-card" attributes="name paragraph images id">
+<polymer-element name="restaurant-card" attributes="restaurantObject">
 
   <template>
    <style>
@@ -58,8 +58,8 @@
     <div class="card-header" layout horizontal center>
       <img src="../images/logo.png" >
         <div id="muevete">
-            <h1>{{name}}</h1>
-            <p>{{paragraph}}</p>
+            <h1>{{restaurantObject.name}}</h1>
+            <p>{{restaurantObject.paragraph}}</p>
          </div>
     </div>
 
