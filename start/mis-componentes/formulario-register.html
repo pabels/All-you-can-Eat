@@ -40,7 +40,7 @@
              <paper-input label="Your paragraph" id="paragraph" floatingLabel="true"></paper-input>
         </div>
         <div  horizontal center-justified layout>
-              <paper-button id="boton" on-tap="{{request}}">enviar</paper-button> 
+              <paper-button id="boton" on-tap="{{handleCreateRestaurant}}">enviar</paper-button> 
         </div>
 
 </template>
@@ -50,13 +50,23 @@
       
    Polymer({
 
-        request: function(){
+        /*handleCreateRestaurant: function(){
           
 
         var nameString = this.$.name.value;
         var  paragraphString= this.$.paragraph.value;
 
-        $.post('/restaurants', { name : nameString,
+        var newRestaurant = { name : nameString,
+          paragraph : paragraphString , 
+          type: "American" , 
+          menu : "", 
+          direction : "" };
+
+        
+
+        
+
+       /* $.post('/restaurants', { name : nameString,
                  paragraph : paragraphString , type: "American" , menu : "", direction : "" } ).done (function(data){
                   console.log(data.name + data.paragraph);
 

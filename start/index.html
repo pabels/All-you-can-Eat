@@ -5,122 +5,17 @@
  
     <script src="../bower_components/platform/platform.js"></script>
     <script src="./util/jquery-1.11.1.js"></script>
-    <!--<script src="./util/util.js"></script>-->
-
-
-  <link rel="stylesheet" type="text/css" href="main-css.css">  
-  <link rel="import" href="../bower_components/core-scaffold/core-scaffold.html">
-  <link rel="import" href="../bower_components/core-toolbar/core-toolbar.html">
-  <link rel="import" href="../bower_components/core-menu/core-menu.html">
-  <link rel="import" href="../bower_components/paper-item/paper-item.html">
-  <link rel="import" href="../lib/flatiron-director/flatiron-director.html"> 
-  <link rel="import" href="../bower_components/core-animated-pages/transitions/slide-from-right.html">
-  <link rel="import" href="../bower_components/core-animated-pages/core-animated-pages.html"> 
-  <link rel="import" href="../bower_components/core-icon-button/core-icon-button.html">
-   
-
-
-  <link rel="import" href="mis-componentes/restaurant-list.html">
-  <link rel="import" href="mis-componentes/restaurant-card.html">
-
-  <link rel="shortcut icon" href="favicon.ico" />
-  <link rel="import" href="mis-componentes/top-10.html">  
-  <link rel="import" href="mis-componentes/formulario-register.html">
-  <link rel="import" href="mis-componentes/formulario-updated.html">
-  <link rel="import" href="mis-componentes/favorite.html">
-
-
-
+    <link rel="stylesheet" type="text/css" href="main-css.css">
+    <link rel="import" href="../bower_components/polymer/polymer.html"> 
+    <link rel="import" href="mis-componentes/main-app.html">
+    <link rel="shortcut icon" href="favicon.ico" />
 
 
 </head>
 <body unresolved fullbleed>
-  <template is="auto-binding" id="t">
-    <flatiron-director route="{{route}}" autoHash></flatiron-director>
-    <core-scaffold id="scaffold">
-  
-    <nav>
-      <core-toolbar>
-        <span>All you can eat</span>
-      </core-toolbar>
-       <core-menu valueattr="hash" selected="{{route}}">
-       <template repeat="{{page in pages}}">
-          <paper-item icon="label{{route != page.hash ? '-outline' : ''}}" label="{{page.name}}" hash="{{page.hash}}" onclick=refresh(this)>
-            <a href="#{{page.hash}}"></a>
-          </paper-item>
-        </template>
-      </core-menu>
-    </nav>
-     <core-toolbar tool flex>
-      <div flex></div>
-        <core-icon-button icon="search"></core-icon-button>
-      <core-icon-button icon="refresh"></core-icon-button>
-      <core-icon-button icon="add"></core-icon-button>
-    </core-toolbar>
 
-     <div layout horizontal center-center fit>
-       <core-animated-pages selected="{{route}}" valueattr="hash" transitions="slide-from-right">
-            <section hash="restaurants" layout vertical center-center>      
-              <restaurant-list id="restaurantList"></restaurant-list>
+<main-app></main-app>
 
-            </section>
-
-            <section  hash="favorites">
-                <h1>A restaurant marked as favorite</h1> 
-            </section >
-
-            <section  hash="top-10">
-               <h1>Ranking of restaurants with more votes</h1>
-            </section>
-            <section  hash="register">
-              <formulario-register> </formulario-register>
-            </section>
-             <section  hash="updated">
-              <formulario-updated> </formulario-updated>
-            </section>
-       </core-animated-pages>
-     </div>
-  
-    
-  </core-scaffold>
-
-
-<script>
-  var DEFAULT_ROUTE= 'restaurants';
-  var template = document.querySelector('#t');
- /* window.addEventListener('polymer-ready', function() {
-    var div = document.getElementById('shower');
-  
-    
-  })*/
-  template.pages = [
-    {name: 'Restaurants', hash: 'restaurants' },
-    {name: 'Favourites', hash: 'favorites'},
-    {name: 'Top-10', hash: 'top-10'},
-    {name: 'Register', hash: 'register'},
-    {name: 'Update', hash: 'updated'}
-
-
-  ];
-  template.addEventListener('template-bound', function(e) {
-        // Use URL hash for initial route. Otherwise, use the first page.
-        this.route = this.route || DEFAULT_ROUTE;
-    });
-  template.menuItemSelected = function(e, detail, sender) {
-        if (detail.isSelected) {
-            scaffold.closeDrawer();
-        }
-    };
-
-
-   function refresh(that){
-  var list=document.getElementById('restaurantList');
-  //console.log(list);
-  list.ready();
- 
-}
-    
-</script>
 
  </body>
  </html>

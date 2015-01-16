@@ -34,13 +34,14 @@
     
 						}.bind(this));
 					}
-				}/*,
-				newScore: function() {
+				},
+
+				newRestaurant: function() {
 					doAjax({type: 'POST'}, function(data) {
 						this.scores.push(data);
 					}.bind(this));
 				},
-				destroyScore: function(score) {
+				/*destroyScore: function(score) {
 					doAjax({type: 'DELETE', url: '/' + score._id, dataType: 'text'}, function(data) {
 						var i = this.scores.indexOf(score);
 						if (i >= 0) {

@@ -1,5 +1,6 @@
- <link rel="import" href="restaurant-model.html">
-<polymer-element name="restaurant-list" attributes="show">
+      <link rel="import" href="./restaurant-model.html">
+ 
+<polymer-element name="restaurant-list" attributes="show restaurantList">
   <template>
 
     <style>
@@ -12,6 +13,7 @@
     </style>
     <restaurant-model id="restaurantModel"></restaurant-model>
      <template repeat="{{restaurantList.restaurants}}">
+
       <div id="restaurant-list" on-restaurant-created="{{ready}}">
       <restaurant-card restaurantObject="{{}}" >
       </restaurant-card>
