@@ -22,6 +22,8 @@
 			}
 
 			var restaurants;
+			var restaurantsFavorites;
+			
 
 			Polymer('restaurant-model', {
 				created: function() {
@@ -29,9 +31,17 @@
 						doAjax({}, function(data) {
 							 data.reverse();
                 			restaurants= data;
-                			
-                			this.restaurants = restaurants; // sirve para q la var restaurants sea accesible desde fuera de restaurant model
-    
+
+                			restaurantsFavorites = data.map(function(key){
+                				if(key.favoriteCard === 'true'){
+                					console.log(key.favoriteCard);
+                					return key;
+                				}
+                			});
+
+        					this.restaurants = restaurants; // sirve para q la var restaurants sea accesible desde fuera de restaurant model
+    						this.restaurantsFavorites = restaurantsFavorites ;
+    						console.log(restaurantsFavorites + 'fdhdh');
 						}.bind(this));
 					}
 				},
@@ -48,17 +58,25 @@
 							this.scores.splice(i, 1);
 						}
 					}.bind(this));
-				},
-				setScore: function(score, team, points) {
-					var url = '/' + score._id + '/set';
+				},*/
+				setRestaurant: function(restaurantFav) {
+					var url =  restaurantFav._id;
+					console.log(url+"soy url");
+					
+
 					var data = {
-						team: team,
-						points: points
+
+							name : restaurantFav.name,
+					        paragraph : restaurantFav.paragraph,
+					        type: restaurantFav.type,
+					        direction: restaurantFav.direction,
+					        menu:restaurantFav.menu,
+					        favoriteCard:  "true"
+						
 					};
-					doAjax({type: 'PUT', url: url, data: JSON.stringify(data)}, function(result) {
-						score[team] = points;
+					doAjax({type: 'PUT', url: url, data: JSON.stringify(data)}, function() {
 					}.bind(this));
-				}*/
+				}
 			});
 		}());
     </script>

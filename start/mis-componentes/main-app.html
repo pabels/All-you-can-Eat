@@ -12,9 +12,69 @@
 <link rel="import" href="./formulario-register.html">
 <link rel="import" href="./formulario-updated.html">
 <link rel="import" href="./restaurant-card.html">
+<link rel="import" href="./restaurant-model.html">
 
 <polymer-element name="main-app">
 <template>
+  <style>
+  core-animated-pages {
+        width: 95%;
+        height: 95%;
+        -webkit-user-select: none;
+        overflow: hidden;
+      }
+
+      core-animated-pages > * {
+        border-radius: 5px;
+        font-size: 50px;
+        background-color: white;
+        overflow: scroll;
+        background-color: teal;
+      }
+
+      core-toolbar {
+background-color: teal;
+        color: #fff;
+       font-family: 'Allura-Regular';
+
+      }
+
+      core-menu {
+        color: lightseagreen;
+        margin: 10px 0 0 0;
+        font-family: 'Allura-Regular';
+        font-size: 24px;
+      }
+
+      core-menu > paper-item {
+        transition: all 300ms ease-in-out;
+      }
+      paper-item{
+        font-size: 24px;
+      }
+      core-menu > paper-item.core-selected {
+        background: #e1f5fe;
+        font-size: 24px;
+      }
+
+     
+      
+      @media all and (max-width: 480px) {
+        core-animated-pages {
+          width: 100%;
+          height: 100%;
+        }
+      }
+            span{
+font-size: 30px;
+      }
+      #cabezera{
+        background-color: teal;
+      }
+      
+  </style>
+      <restaurant-model id="restaurantModel"></restaurant-model>
+
   
     <flatiron-director route="{{route}}" autoHash></flatiron-director>
     <core-scaffold id="scaffold">
@@ -31,8 +91,8 @@
         </template>
       </core-menu>
     </nav>
-     <core-toolbar tool flex>
-      <div flex></div>
+     <core-toolbar  tool flex>
+      <div flex id="cabezera"></div>
         <core-icon-button icon="search"></core-icon-button>
       <core-icon-button icon="refresh"></core-icon-button>
       <core-icon-button icon="add"></core-icon-button>
@@ -40,13 +100,15 @@
 
      <div layout horizontal center-center fit>
        <core-animated-pages selected="{{route}}" valueattr="hash" transitions="slide-from-right">
-            <section hash="restaurants" layout vertical center-center>      
-              <restaurant-list id="restaurantList"></restaurant-list>
+            <section hash="restaurants" layout vertical center-center>
+
+            <restaurant-list id="restaurantList" restaurantList="{{restaurant_model.restaurants}}" on-favorite-updated="{{handleFavoriteChanged}}"></restaurant-list>
 
             </section>
 
             <section  hash="favorites">
-                <h1>A restaurant marked as favorite</h1> 
+                 
+                <restaurant-list id="res" restaurantList="{{restaurant_model.restaurantsFavorites}}"></restaurant-list>
             </section >
 
             <section  hash="top-10">
@@ -79,13 +141,21 @@
   Polymer({
   
       ready: function () {
+        this.restaurant_model = this.$.restaurantModel;
           loadPages.bind(this)();
         },
 
        refresh: function (that){
-          var list=this.$.restaurantList;
+          this.list=this.$.restaurantList;
           list.ready();
  
+     },
+     handleFavoriteChanged: function(event,detail){
+
+      console.log(detail.restaurantFav.name+"soy de main app");
+      this.restaurant_model.setRestaurant(detail.restaurantFav);
+
+
      },
       menuItemSelected: function (e, detail, sender) {
           if (detail.isSelected) {

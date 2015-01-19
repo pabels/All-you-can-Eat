@@ -5,59 +5,8 @@
        src: url('./fonts/Allura-Regular.otf') format("truetype");
       }
      
-
-      core-animated-pages {
-        width: 95%;
-        height: 95%;
-        -webkit-user-select: none;
-        overflow: hidden;
-      }
-
-      core-animated-pages > * {
-        border-radius: 5px;
-        font-size: 50px;
-        background-color: white;
-        overflow: scroll;
-        background-color: teal;
-      }
-
-      body /deep/ core-toolbar {
-        background-color: teal;
-        color: #fff;
-       font-family: 'Allura-Regular';
-
-      }
-
-      core-menu {
-        color: lightseagreen;
-        margin: 10px 0 0 0;
-        font-family: 'Allura-Regular';
-        font-size: 24px;
-      }
-
-      core-menu > paper-item {
-        transition: all 300ms ease-in-out;
-      }
-      paper-item{
-        font-size: 24px;
-      }
-      core-menu > paper-item.core-selected {
-        background: #e1f5fe;
-        font-size: 24px;
-      }
-
-      #main-section{
-      	width: 100%;
-      	height: 100%;
-      }
-      
-      @media all and (max-width: 480px) {
-        core-animated-pages {
-          width: 100%;
-          height: 100%;
-        }
-      }
-      span{
-font-size: 38px;
+ #main-section{
+        width: 100%;
+        height: 100%;
       }
       

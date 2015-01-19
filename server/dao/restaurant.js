@@ -21,7 +21,7 @@ function findById(restaurantId, callback){
 function updateRestaurant(restaurantId, newRestaurant, callback){
 	RestaurantR.update({_id: restaurantId},{$set:{name: newRestaurant.name,paragraph: newRestaurant.paragraph,
  			 images:   newRestaurant.images, type: newRestaurant.type,
-		menu: newRestaurant.menu, direction: newRestaurant.direction}}, callback);
+		menu: newRestaurant.menu, direction: newRestaurant.direction, favoriteCard: newRestaurant.favoriteCard}}, callback);
 }
 
 function deleteRestaurant(restaurantId,callback) {

@@ -12,7 +12,8 @@ module.exports = function (app) {
   			image:    req.body.image,
   			type:  req.body.type,
   			menu:  req.body.menu,
-  			direction: req.body.direction
+  			direction: req.body.direction,
+  			favoriteCard: req.body.favoriteCard
 		 }, function(err) { 
 				if(!err){
 				    console.log('Restaurant created');
@@ -62,7 +63,9 @@ module.exports = function (app) {
  			 image:   req.body.image,
   			type:  req.body.type,
   			menu:  req.body.menu,
-  			direction: req.body.direction},function(err) { 
+  			direction: req.body.direction,
+  			favoriteCard: req.body.favoriteCard},
+  			function(err) { 
 				if(!err){
 				    console.log('Updating restaurant');
 					res.send('Restaurant updated');

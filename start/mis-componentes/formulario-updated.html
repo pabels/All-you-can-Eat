@@ -74,7 +74,8 @@ function getRestaurant(data){
         paragraph : this.$.edit_paragraph.value,
         type: "American",
         direction: data[i].direction,
-        menu:data[i].menu
+        menu:data[i].menu,
+        favoriteCard:  data[i].favoriteCard
       };
       id=data[i]._id;
     }

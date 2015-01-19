@@ -1,6 +1,5 @@
-      <link rel="import" href="./restaurant-model.html">
  
-<polymer-element name="restaurant-list" attributes="show restaurantList">
+<polymer-element name="restaurant-list" attributes="restaurantList" >
   <template>
 
     <style>
@@ -11,12 +10,10 @@
       }
 
     </style>
-    <restaurant-model id="restaurantModel"></restaurant-model>
-     <template repeat="{{restaurantList.restaurants}}">
+     <template repeat="{{restaurantList}}">
 
       <div id="restaurant-list" on-restaurant-created="{{ready}}">
-      <restaurant-card restaurantObject="{{}}" >
-      </restaurant-card>
+      <restaurant-card restaurantObject="{{}}" ></restaurant-card>
       </div>
 
     </template> 
@@ -27,15 +24,15 @@
 
    <script>
       
-
+      
         Polymer({
-          ready: function () {
+         /* ready: function () {
 
         
              this.restaurantList = this.$.restaurantModel; // se carga antes el model q la llamada a ajax por eso cogemos todo el elemento antes q la var 
             
             
-          }
+          }*/
           
         });
     </script>
