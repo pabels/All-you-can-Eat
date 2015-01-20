@@ -1,7 +1,7 @@
  <link rel="import" href="../../bower_components/paper-button/paper-button.html">
   <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 
-<polymer-element name="formulario-register" attributes="show crearRestaurante">
+<polymer-element name="formulario-register" attributes="crearRestaurante">
   <template>
   	<style>	
     paper-input{
@@ -40,7 +40,7 @@
              <paper-input label="Your paragraph" id="paragraph" floatingLabel="true"></paper-input>
         </div>
         <div  horizontal center-justified layout>
-              <paper-button id="boton" on-tap="{{handleCreateRestaurant}}">enviar</paper-button> 
+              <paper-button id="boton" on-tap="{{CreateRestaurant}}">enviar</paper-button> 
         </div>
 
 </template>
@@ -50,39 +50,22 @@
       
    Polymer({
 
-        /*handleCreateRestaurant: function(){
+        CreateRestaurant: function(){
           
 
         var nameString = this.$.name.value;
         var  paragraphString= this.$.paragraph.value;
+        console.log(nameString + paragraphString + 'agsdvc');
 
         var newRestaurant = { name : nameString,
-          paragraph : paragraphString , 
-          type: "American" , 
-          menu : "", 
-          direction : "" };
+                 paragraph : paragraphString , type: "American" , menu : "", direction : "", favoriteCard : "false" };
 
-        
 
-        
-
-       /* $.post('/restaurants', { name : nameString,
-                 paragraph : paragraphString , type: "American" , menu : "", direction : "" } ).done (function(data){
-                  console.log(data.name + data.paragraph);
-
-                  alert("Tu restaurante ha sido añadido, dirigete a la lista de restaurantes =) ");
-                 }).fail(function(){
-                  console.log("error");
-                 })
-         this.fire('restaurant-created'); //evento que recoje restaurant list para llamar al ready y actualizarse
+          console.log(newRestaurant + 'eeeeeeey');
+         this.fire('restaurant-created', newRestaurant); //evento que recoje restaurant list para llamar al ready y actualizarse
         
         }
-        /*var nameString = this.$.name.value;
-        var  paragraphString= this.$.paragraph.value;
-
-        this.fire('registed', { name : nameString,
-                 paragraph : paragraphString});
-*/
+        
    });
   </script>
 </polymer-element>

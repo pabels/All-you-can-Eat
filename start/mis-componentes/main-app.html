@@ -85,7 +85,7 @@ font-size: 30px;
       </core-toolbar>
        <core-menu valueattr="hash" selected="{{route}}" on-core-select="{{menuItemSelected}}">
        <template repeat="{{page in pages}}">
-          <paper-item icon="label{{route != page.hash ? '-outline' : ''}}" label="{{page.name}}" hash="{{page.hash}}" onclick=refresh(this)>
+          <paper-item icon="label{{route != page.hash ? '-outline' : ''}}" label="{{page.name}}" hash="{{page.hash}}" on-tap="{{refresh(this)}}">
             <a href="#{{page.hash}}"></a>
           </paper-item>
         </template>
@@ -102,20 +102,20 @@ font-size: 30px;
        <core-animated-pages selected="{{route}}" valueattr="hash" transitions="slide-from-right">
             <section hash="restaurants" layout vertical center-center>
 
-            <restaurant-list id="restaurantList" restaurantList="{{restaurant_model.restaurants}}" on-favorite-updated="{{handleFavoriteChanged}}"></restaurant-list>
+            <restaurant-list id="restaurantList"  show="restaurants" restaurantList="{{restaurant_model.restaurants}}" on-favorite-updated="{{handleFavoriteChanged}}"></restaurant-list>
 
             </section>
 
             <section  hash="favorites">
                  
-                <restaurant-list id="res" restaurantList="{{restaurant_model.restaurantsFavorites}}"></restaurant-list>
+                <restaurant-list id="res" restaurantList="{{restaurant_model.restaurants}}" show="Favourites"></restaurant-list>
             </section >
 
             <section  hash="top-10">
                <h1>Ranking of restaurants with more votes</h1>
             </section>
             <section  hash="register">
-              <formulario-register> </formulario-register>
+              <formulario-register on-restaurant-created="{{handleCreateRestaurant}}"> </formulario-register>
             </section>
              <section  hash="updated">
               <formulario-updated> </formulario-updated>
@@ -145,15 +145,23 @@ font-size: 30px;
           loadPages.bind(this)();
         },
 
-       refresh: function (that){
-          this.list=this.$.restaurantList;
-          list.ready();
+       /*refresh: function (that){
+          //this.list=this.$.restaurantList;
+          this.ready();
  
-     },
+     },*/
      handleFavoriteChanged: function(event,detail){
 
-      console.log(detail.restaurantFav.name+"soy de main app");
+    
       this.restaurant_model.setRestaurant(detail.restaurantFav);
+    //  this.restaurant_model.restaurants.unshift(detail.restaurantFav);
+
+
+     },
+     handleCreateRestaurant: function(event, detail){
+     
+      this.restaurant_model.newRestaurant(detail);
+      this.restaurant_model.restaurants.unshift(detail);
 
 
      },

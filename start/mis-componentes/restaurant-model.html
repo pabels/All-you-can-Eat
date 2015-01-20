@@ -22,7 +22,7 @@
 			}
 
 			var restaurants;
-			var restaurantsFavorites;
+			//var restaurantsFavorites;
 			
 
 			Polymer('restaurant-model', {
@@ -32,24 +32,22 @@
 							 data.reverse();
                 			restaurants= data;
 
-                			restaurantsFavorites = data.map(function(key){
+                			/*restaurantsFavorites = data.map(function(key){
                 				if(key.favoriteCard === 'true'){
-                					console.log(key.favoriteCard);
+                					
                 					return key;
                 				}
-                			});
+                			});*/
 
         					this.restaurants = restaurants; // sirve para q la var restaurants sea accesible desde fuera de restaurant model
-    						this.restaurantsFavorites = restaurantsFavorites ;
-    						console.log(restaurantsFavorites + 'fdhdh');
+    						//this.restaurantsFavorites = restaurantsFavorites;
+
 						}.bind(this));
 					}
 				},
 
-				newRestaurant: function() {
-					doAjax({type: 'POST'}, function(data) {
-						this.scores.push(data);
-					}.bind(this));
+				newRestaurant: function(detail) {
+					$.post(base ,detail).done(function(data){console.log(data.name + data.paragraph); alert('creado');}).fail(function(){console.log('eerr');})					
 				},
 				/*destroyScore: function(score) {
 					doAjax({type: 'DELETE', url: '/' + score._id, dataType: 'text'}, function(data) {

@@ -72,6 +72,7 @@
 
   Polymer({
 
+        
         setFavorite: function(){
           
           
@@ -82,14 +83,21 @@
           }
           this.fire('favorite-updated', { restaurantFav : this.restaurantObject});
            
-            console.log(this.restaurantObject.name+ " soy de card");
+           
            },
      
 
       ready : function(){
         this.$.favicon.style.color='black';
 
+        if(this.restaurantObject.favoriteCard == 'true'){
+             this.$.favicon.style.color='red';
+        }
+             //console.log(this.restaurantObject.favoriteCard);
+
+
       }
+
 
 
 
