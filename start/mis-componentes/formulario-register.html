@@ -58,12 +58,11 @@
         console.log(nameString + paragraphString + 'agsdvc');
 
         var newRestaurant = { name : nameString,
-                 paragraph : paragraphString , type: "American" , menu : "", direction : "", favoriteCard : "false" };
+                 paragraph : paragraphString , type: "American" , menu : "", direction : "", favoriteCard : false };
 
 
           console.log(newRestaurant + 'eeeeeeey');
-         this.fire('restaurant-created', newRestaurant); //evento que recoje restaurant list para llamar al ready y actualizarse
-        
+         this.fire('restaurant-created', newRestaurant); 
         }
         
    });

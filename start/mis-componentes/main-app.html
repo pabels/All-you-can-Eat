@@ -108,7 +108,7 @@ font-size: 30px;
 
             <section  hash="favorites">
                  
-                <restaurant-list id="res" restaurantList="{{restaurant_model.restaurants}}" show="Favourites"></restaurant-list>
+                <restaurant-list id="res" restaurantList="{{restaurant_model.restaurants}}" show="Favorites"></restaurant-list>
             </section >
 
             <section  hash="top-10">
@@ -153,7 +153,7 @@ font-size: 30px;
      handleFavoriteChanged: function(event,detail){
 
     
-      this.restaurant_model.setRestaurant(detail.restaurantFav);
+      this.restaurant_model.setRestaurant(detail);
     //  this.restaurant_model.restaurants.unshift(detail.restaurantFav);
 
 
@@ -161,7 +161,7 @@ font-size: 30px;
      handleCreateRestaurant: function(event, detail){
      
       this.restaurant_model.newRestaurant(detail);
-      this.restaurant_model.restaurants.unshift(detail);
+      
 
 
      },

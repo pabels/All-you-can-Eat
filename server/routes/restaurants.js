@@ -6,24 +6,31 @@ module.exports = function (app) {
 
 	function addRestaurantR(req, res) {
 
-		restaurantManager.create({
-		 	name:  req.body.name,
+
+		var rest={
+			name:  req.body.name,
 		 	paragraph: req.body.paragraph,
   			image:    req.body.image,
   			type:  req.body.type,
   			menu:  req.body.menu,
   			direction: req.body.direction,
   			favoriteCard: req.body.favoriteCard
-		 }, function(err) { 
+		};
+
+		restaurantManager.create(rest, function(err, restaurant) { 
+
 				if(!err){
 				    console.log('Restaurant created');
-					res.send('Restaurant created');
+					res.send(restaurant);
+
+
 
                 }else{
 					console.log('Error' + err);
 				    res.status(500).send('Error');
 				}
         });
+
 	}
 
 

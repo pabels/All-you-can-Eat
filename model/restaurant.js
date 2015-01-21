@@ -9,7 +9,7 @@ var RestaurantR = new Schema({
   type:     {type: String, enum: ['Italian', 'Chinese', 'Mexican', 'American', 'Japanese'] },
   menu:      {type: String },
   direction: {type: String },
-  favoriteCard: {type: String }
+  favoriteCard: {type: Boolean }
 });
 
 

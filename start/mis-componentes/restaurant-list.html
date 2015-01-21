@@ -10,10 +10,10 @@
       }
 
     </style>
-     <template repeat="{{restaurantList}}">
-
+     <template repeat="{{rest in restaurantList}}">
+      
       <div id="restaurant-list" on-restaurant-created="{{ready}}">
-      <restaurant-card  restaurantObject="{{}}" hidden?="{{show == 'Favourites' }}" ></restaurant-card>
+      <restaurant-card  restaurantObject="{{rest}}" hidden?="{{!rest.favoriteCard && show =='Favorites'}}" ></restaurant-card>
       </div>
 
     </template> 
@@ -26,12 +26,16 @@
       
       
         Polymer({
+
+
+         
          ready: function () {
 
         /*
              this.restaurantList = this.$.restaurantModel; // se carga antes el model q la llamada a ajax por eso cogemos todo el elemento antes q la var */
             this.restaurantList=[];
             console.log(this.restaurantList+"    list");
+            console.log(this.show + 'efmvpfm,');
           }
           
           

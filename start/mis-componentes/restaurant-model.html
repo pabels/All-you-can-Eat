@@ -47,7 +47,12 @@
 				},
 
 				newRestaurant: function(detail) {
-					$.post(base ,detail).done(function(data){console.log(data.name + data.paragraph); alert('creado');}).fail(function(){console.log('eerr');})					
+					$.post(base ,detail, function( data,status){
+						console.log(status+" status");
+						console.log(data._id +" data");
+						restaurants.unshift(data);				
+
+					});
 				},
 				/*destroyScore: function(score) {
 					doAjax({type: 'DELETE', url: '/' + score._id, dataType: 'text'}, function(data) {
@@ -59,9 +64,6 @@
 				},*/
 				setRestaurant: function(restaurantFav) {
 					var url =  restaurantFav._id;
-					console.log(url+"soy url");
-					
-
 					var data = {
 
 							name : restaurantFav.name,
@@ -69,11 +71,28 @@
 					        type: restaurantFav.type,
 					        direction: restaurantFav.direction,
 					        menu:restaurantFav.menu,
-					        favoriteCard:  "true"
-						
+					        favoriteCard:  true,
+					        _id : restaurantFav._id
+							
 					};
-					doAjax({type: 'PUT', url: url, data: JSON.stringify(data)}, function() {
-					}.bind(this));
+					//restaurants.unshift(data);
+
+					var i=0;
+
+					while( restaurants[i]._id != data._id && i<restaurants.length){
+						console.log(restaurants[i]._id +"==="+ data._id)
+					
+						i++;
+
+					}
+
+					restaurants[i]=data;
+
+
+
+
+
+					doAjax({type: 'PUT', url: url, data: JSON.stringify(data)}, function() {}.bind(this));
 				}
 			});
 		}());

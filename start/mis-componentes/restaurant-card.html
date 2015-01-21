@@ -71,30 +71,26 @@
   <script>
 
   Polymer({
+         
 
-        
         setFavorite: function(){
+          this.$.favicon.style.color='red';
           
-          
-          if(this.$.favicon.style.color=='black'){
-            this.$.favicon.style.color='red';
-          }else{
-            this.$.favicon.style.color='black';
-          }
-          this.fire('favorite-updated', { restaurantFav : this.restaurantObject});
-           
+          this.fire('favorite-updated', this.restaurantObject);
+          // console.log("---------------------------------->",this.restaurantObject._id);
            
            },
      
 
       ready : function(){
-        this.$.favicon.style.color='black';
+        //this.$.favicon.style.color='black';
 
-        if(this.restaurantObject.favoriteCard == 'true'){
-             this.$.favicon.style.color='red';
-        }
-             //console.log(this.restaurantObject.favoriteCard);
-
+          if(this.restaurantObject.favoriteCard){
+            this.$.favicon.style.color='red';
+          }else{
+            this.$.favicon.style.color='black';
+          }
+      
 
       }
 
