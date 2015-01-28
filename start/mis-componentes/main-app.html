@@ -13,10 +13,15 @@
 <link rel="import" href="./formulario-updated.html">
 <link rel="import" href="./restaurant-card.html">
 <link rel="import" href="./restaurant-model.html">
+<link rel="import" href="app-login.html">
+
 
 <polymer-element name="main-app">
 <template>
   <style>
+  href{
+    text-transform: none;
+  }
   core-animated-pages {
         width: 95%;
         height: 95%;
@@ -37,6 +42,10 @@ background-color: teal;
         color: #fff;
        font-family: 'Allura-Regular';
 
+      }
+
+      core-scaffold > core-toolbar tool flex{
+        background-color: teal;
       }
 
       core-menu {
@@ -65,23 +74,30 @@ background-color: teal;
           height: 100%;
         }
       }
+      @media all and(max-width: 600px){
+        core-toolbar{
+          background-color: teal;
+
+        }
+      }
             span{
 font-size: 30px;
       }
       #cabezera{
-        background-color: teal;
+        margin-left: -8px;
+margin-right: -10px;
       }
       
   </style>
       <restaurant-model id="restaurantModel"></restaurant-model>
-
   
     <flatiron-director route="{{route}}" autoHash></flatiron-director>
-    <core-scaffold id="scaffold">
-  
+    <core-scaffold id="scaffold" >
+    <app-login id="login"></app-login>
+
     <nav>
-      <core-toolbar>
-        <span>All you can eat</span>
+      <core-toolbar valueattr="hash">
+        <a href="" id='home' on-click="{{goHome}}"><span>All you can eat</span></a>
       </core-toolbar>
        <core-menu valueattr="hash" selected="{{route}}" on-core-select="{{menuItemSelected}}">
        <template repeat="{{page in pages}}">
@@ -91,11 +107,11 @@ font-size: 30px;
         </template>
       </core-menu>
     </nav>
-     <core-toolbar  tool flex>
-      <div flex id="cabezera"></div>
+     <core-toolbar  tool flex id ="cabezera">
+      <div flex ></div>
         <core-icon-button icon="search"></core-icon-button>
-      <core-icon-button icon="refresh"></core-icon-button>
-      <core-icon-button icon="add"></core-icon-button>
+      <core-icon-button icon="settings-power" on-click="{{handleLogout}}"></core-icon-button>
+      <core-icon-button id="add" icon="perm-identity" on-click="{{fireLogin}}"></core-icon-button>
     </core-toolbar>
 
      <div layout horizontal center-center fit>
@@ -142,29 +158,38 @@ font-size: 30px;
   
       ready: function () {
         this.restaurant_model = this.$.restaurantModel;
-          loadPages.bind(this)();
+        this.login = this.$.login;
+        loadPages.bind(this)();
+        if(localStorage.token){
+         this.$.add.icon="account-circle";
+        }
+
+
+
         },
-
-       /*refresh: function (that){
-          //this.list=this.$.restaurantList;
-          this.ready();
- 
-     },*/
+     goHome: function(){
+        window.navigate('#restaurants');
+     },
+     
      handleFavoriteChanged: function(event,detail){
-
-    
       this.restaurant_model.setRestaurant(detail);
-    //  this.restaurant_model.restaurants.unshift(detail.restaurantFav);
-
-
      },
      handleCreateRestaurant: function(event, detail){
-     
       this.restaurant_model.newRestaurant(detail);
-      
-
-
      },
+     fireLogin: function() {
+      this.$.add.icon= "account-circle";
+        this.login.login();
+        
+
+      },
+
+      handleLogout: function(){
+        this.$.add.icon="perm-identity";
+        this.login.logout();
+        alert(localStorage +' ***********');
+
+      },
       menuItemSelected: function (e, detail, sender) {
           if (detail.isSelected) {
             this.$.scaffold.closeDrawer();

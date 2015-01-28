@@ -58,11 +58,14 @@
         console.log(nameString + paragraphString + 'agsdvc');
 
         var newRestaurant = { name : nameString,
-                 paragraph : paragraphString , type: "American" , menu : "", direction : "", favoriteCard : false };
+                 paragraph : paragraphString , type: "" , menu : "", direction : "", favoriteCard : false };
 
 
           console.log(newRestaurant + 'eeeeeeey');
          this.fire('restaurant-created', newRestaurant); 
+         socket.emit('restaurant-created', function(){
+
+         })
         }
         
    });

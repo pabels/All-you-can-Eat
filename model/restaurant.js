@@ -6,7 +6,7 @@ var RestaurantR = new Schema({
   name:      {type : String},
   paragraph: {type: String},
   image:    {type: String},
-  type:     {type: String, enum: ['Italian', 'Chinese', 'Mexican', 'American', 'Japanese'] },
+  type:     {type: String },
   menu:      {type: String },
   direction: {type: String },
   favoriteCard: {type: Boolean }
