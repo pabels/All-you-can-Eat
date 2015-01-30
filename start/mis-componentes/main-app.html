@@ -80,13 +80,21 @@ background-color: teal;
 
         }
       }
-            span{
-font-size: 30px;
-      }
+       span{
+        font-size: 30px;
+
+        color: white;             
+         }
       #cabezera{
         margin-left: -8px;
-margin-right: -10px;
+        margin-right: -10px;
       }
+      #home:link{
+        text-decoration:none;  
+
+
+      }
+
       
   </style>
       <restaurant-model id="restaurantModel"></restaurant-model>
@@ -101,7 +109,7 @@ margin-right: -10px;
       </core-toolbar>
        <core-menu valueattr="hash" selected="{{route}}" on-core-select="{{menuItemSelected}}">
        <template repeat="{{page in pages}}">
-          <paper-item icon="label{{route != page.hash ? '-outline' : ''}}" label="{{page.name}}" hash="{{page.hash}}" on-tap="{{refresh(this)}}">
+          <paper-item icon="label{{route != page.hash ? '-outline' : ''}}" label="{{page.name}}" hash="{{page.hash}}" on-tap="{{refresh(this)}}" hidden?="{{page.hash =='register' && !loginLogged}}">
             <a href="#{{page.hash}}"></a>
           </paper-item>
         </template>
@@ -111,7 +119,7 @@ margin-right: -10px;
       <div flex ></div>
         <core-icon-button icon="search"></core-icon-button>
       <core-icon-button icon="settings-power" on-click="{{handleLogout}}"></core-icon-button>
-      <core-icon-button id="add" icon="perm-identity" on-click="{{fireLogin}}"></core-icon-button>
+      <core-icon-button id="add" icon="perm-identity" on-click="{{fireLogin}}" ></core-icon-button>
     </core-toolbar>
 
      <div layout horizontal center-center fit>
@@ -145,7 +153,7 @@ margin-right: -10px;
       function loadPages() {
          var DEFAULT_ROUTE= 'restaurants';
           this.pages = [
-            {name: 'Restaurants', hash: 'restaurants' },
+            {name: 'Restaurants', hash: 'restaurants'},
             {name: 'Favourites', hash: 'favorites'},
             {name: 'Top-10', hash: 'top-10'},
             {name: 'Register', hash: 'register'},
@@ -153,19 +161,15 @@ margin-right: -10px;
             ];
         this.route = this.route || DEFAULT_ROUTE;
       }
-     
   Polymer({
-  
+
+     
       ready: function () {
         this.restaurant_model = this.$.restaurantModel;
-        this.login = this.$.login;
+        this.loginLogged = this.$.login.logged;
+        this.login =this.$.login;
+        console.log(this.loginLogged+'7777777777777777777777777777777777777');
         loadPages.bind(this)();
-        if(localStorage.token){
-         this.$.add.icon="account-circle";
-        }
-
-
-
         },
      goHome: function(){
         window.navigate('#restaurants');
@@ -178,17 +182,19 @@ margin-right: -10px;
       this.restaurant_model.newRestaurant(detail);
      },
      fireLogin: function() {
-      this.$.add.icon= "account-circle";
+     
         this.login.login();
-        
-
+        console.log(this.login.logged + '-------');
+        this.loginLogged=this.login.logged;
+         
       },
 
       handleLogout: function(){
         this.$.add.icon="perm-identity";
         this.login.logout();
-        alert(localStorage +' ***********');
-
+         this.loginLogged=this.login.logged;
+        console.log(this.login.logged + '-------');
+        
       },
       menuItemSelected: function (e, detail, sender) {
           if (detail.isSelected) {
