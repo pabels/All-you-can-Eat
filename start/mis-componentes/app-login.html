@@ -1,6 +1,5 @@
 <polymer-element name="app-login">
 	<template>
-
 	</template>
 	<script>
 		(function() {
@@ -59,7 +58,7 @@
 			Polymer({
 				logged: false,
 				ready: function() {
-					this.logged = Boolean(localStorage.token);
+					this.logged = new Boolean(localStorage.token);
 					/*if (this.logged) {
 						socket.connect(localStorage.token);
 					}*/
@@ -68,7 +67,7 @@
 					authorize().done(function(data) {
 						localStorage.token = data.token;
 						this.logged = true;
-						socket.connect(data.token);
+						//socket.connect(data.token);
 						//showMsg('logged');
 					}.bind(this)).fail(function() {
 						delete localStorage.token;
@@ -79,11 +78,11 @@
 					alert('bye');
 					delete localStorage.token;
 					this.logged = false;
-					if (socket) {
-						socket.disconnect();
-					}
+					//if (socket) {
+					//	socket.disconnect();
+					//}
 
-					document.location.reload();
+					
 				}
 			});
 		}());

@@ -9,7 +9,8 @@ var RestaurantR = new Schema({
   type:     {type: String },
   menu:      {type: String },
   direction: {type: String },
-  favoriteCard: {type: Boolean }
+  favoriteCard: {type: Boolean },
+  owner : {type: String}
 });
 
 

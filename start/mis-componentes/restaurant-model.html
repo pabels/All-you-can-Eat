@@ -10,16 +10,7 @@
 		(function() {
 			var base = '/restaurants/';
 			
-			function doAjax(options, success, error) {
-				options.type = options.type || 'GET';
-				options.url = base + (options.url || '');
-				options.dataType = options.dataType || 'json';
-				options.contentType = options.contentType || 'application/json; charset=UTF-8';
-				options.success = success;
-				options.error = (typeof error === 'function') ? error : 'error';
-
-				$.ajax(options);
-			}
+			
 
 			var restaurants;
 			//var restaurantsFavorites;

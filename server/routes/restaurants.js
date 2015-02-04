@@ -2,6 +2,8 @@ module.exports = function (app) {
 
 	//var RestaurantR = require('../../model/restaurant.js');
 	var restaurantManager = require('../manager/restaurant');
+	var ensureAuth = require('../middleware/sec').ensureAuthenticated;
+			var ensureOwner = require('../middleware/sec').ensureOwner;
 
 
 	function addRestaurantR(req, res) {
@@ -103,9 +105,9 @@ module.exports = function (app) {
     //rutes
 	app.get('/restaurants', findAllRestaurantRs);
 	app.get('/restaurants/:id', findById);
-	app.post('/restaurants', addRestaurantR);
-	app.put('/restaurants/:id', updateRestaurant);
-	app.delete('/restaurants/:id', deleteRestaurant);
+	app.post('/restaurants',ensureAuth, ensureOwner, addRestaurantR);
+	app.put('/restaurants/:id',ensureAuth, ensureOwner, updateRestaurant);
+	app.delete('/restaurants/:id',ensureAuth, ensureOwner, deleteRestaurant);
 
 
 };
