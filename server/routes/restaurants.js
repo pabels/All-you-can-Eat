@@ -7,8 +7,6 @@ module.exports = function (app) {
 
 
 	function addRestaurantR(req, res) {
-
-
 		var rest={
 			name:  req.body.name,
 		 	paragraph: req.body.paragraph,
@@ -16,7 +14,8 @@ module.exports = function (app) {
   			type:  req.body.type,
   			menu:  req.body.menu,
   			direction: req.body.direction,
-  			favoriteCard: req.body.favoriteCard
+  			favoriteCard: req.body.favoriteCard,
+  			owner: localStorage.token
 		};
 
 		restaurantManager.create(rest, function(err, restaurant) { 
@@ -105,9 +104,8 @@ module.exports = function (app) {
     //rutes
 	app.get('/restaurants', findAllRestaurantRs);
 	app.get('/restaurants/:id', findById);
-	app.post('/restaurants',ensureAuth, ensureOwner, addRestaurantR);
-	app.put('/restaurants/:id',ensureAuth, ensureOwner, updateRestaurant);
+	app.post('/restaurants', ensureAuth, addRestaurantR);
+	app.put('/restaurants/:id',updateRestaurant);
 	app.delete('/restaurants/:id',ensureAuth, ensureOwner, deleteRestaurant);
-
 
 };

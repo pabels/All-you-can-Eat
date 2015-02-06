@@ -4,10 +4,8 @@ var daoRestaurant = require('../dao/restaurant');
 
 
 function create(restaurant, callback) {
-
+	console.log(restaurant.name);
 	daoRestaurant.create(restaurant, callback);
-	//new RestaurantR(restaurant)
-
 }
 
 function findAll(callback) {

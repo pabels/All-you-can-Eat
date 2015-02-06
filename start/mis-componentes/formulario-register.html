@@ -51,21 +51,15 @@
    Polymer({
 
         CreateRestaurant: function(){
-          
-
-        var nameString = this.$.name.value;
-        var  paragraphString= this.$.paragraph.value;
-        console.log(nameString + paragraphString + 'agsdvc');
-
-        var newRestaurant = { name : nameString,
-                 paragraph : paragraphString , type: "" , menu : "", direction : "", favoriteCard : false };
-
-
-          console.log(newRestaurant + 'eeeeeeey');
-         this.fire('restaurant-created', newRestaurant); 
-         socket.emit('restaurant-created', function(){
-
-         })
+          var nameString = this.$.name.value;
+          var  paragraphString= this.$.paragraph.value;
+          console.log('formulario-register crearRestaurant');
+          var newRestaurant = { name : nameString,
+            paragraph : paragraphString , type: "" , menu : "", direction : "", favoriteCard : false };
+            console.log(newRestaurant.name+ newRestaurant.paragraph+ ' CREATED');
+           this.fire('restaurant-created', newRestaurant); 
+           //socket.emit('restaurant-created', function(){
+           //});
         }
         
    });

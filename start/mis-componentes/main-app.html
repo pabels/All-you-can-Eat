@@ -119,7 +119,7 @@ background-color: teal;
       <div flex ></div>
         <core-icon-button icon="search"></core-icon-button>
       <core-icon-button icon="settings-power" on-click="{{handleLogout}}"></core-icon-button>
-      <core-icon-button id="add" icon="perm-identity"  on-click="{{fireLogin}}" ></core-icon-button>
+      <core-icon-button id="add" icon="perm-identity" on-click="{{fireLogin}}" ></core-icon-button>
     </core-toolbar>
 
      <div layout horizontal center-center fit>
@@ -161,42 +161,41 @@ background-color: teal;
             ];
         this.route = this.route || DEFAULT_ROUTE;
       }
+      
   Polymer({
 
-     
       ready: function () {
         this.restaurant_model = this.$.restaurantModel;
         this.login =this.$.login;
         this.loginLogged = this.$.login.logged;
-        
-        
         loadPages.bind(this)();
-        },
+        
+      },
      goHome: function(){
         window.navigate('#restaurants');
      },
-     
+    
      handleFavoriteChanged: function(event,detail){
       this.restaurant_model.setRestaurant(detail);
      },
-     handleCreateRestaurant: function(event, d0etail){
+     handleCreateRestaurant: function(event, detail){
       this.restaurant_model.newRestaurant(detail);
-     },
+    
+    },
+      
      fireLogin: function() {
-     
         this.login.login();
-        checkIcon();
+        if(this.loginLogged){
+          this.$.add.icon = "account-circle";
+        }else{
+          this.$.add.icon = "perm-identity";
+        }
          
-      },
-      checkIcon: function(){
-        this.$.add.icon = $.login.logged ? "account-circle" : "perm-identity";
       },
 
       handleLogout: function(){
         this.$.add.icon="perm-identity";
-        this.login.logout();
-        
-          
+        this.login.logout();   
       },
       menuItemSelected: function (e, detail, sender) {
           if (detail.isSelected) {
@@ -204,10 +203,8 @@ background-color: teal;
           }
       }
  });
+
 }());
 </script>
-
-
-
 
 </polymer-element>

@@ -4,89 +4,52 @@
 
 
  <script>
-      
-
-
-		(function() {
-			var base = '/restaurants/';
-			
-			
-
-			var restaurants;
-			//var restaurantsFavorites;
-			
-
-			Polymer('restaurant-model', {
-				created: function() {
-					if (!restaurants) {
-						doAjax({}, function(data) {
-							 data.reverse();
-                			restaurants= data;
-
-                			/*restaurantsFavorites = data.map(function(key){
-                				if(key.favoriteCard === 'true'){
-                					
-                					return key;
-                				}
-                			});*/
-
-        					this.restaurants = restaurants; // sirve para q la var restaurants sea accesible desde fuera de restaurant model
-    						//this.restaurantsFavorites = restaurantsFavorites;
-
-						}.bind(this));
-					}
-				},
-
-				newRestaurant: function(detail) {
-					$.post(base ,detail, function( data,status){
-						console.log(status+" status");
-						console.log(data._id +" data");
-						restaurants.unshift(data);				
-
-					});
-				},
-				/*destroyScore: function(score) {
-					doAjax({type: 'DELETE', url: '/' + score._id, dataType: 'text'}, function(data) {
-						var i = this.scores.indexOf(score);
-						if (i >= 0) {
-							this.scores.splice(i, 1);
-						}
-					}.bind(this));
-				},*/
-				setRestaurant: function(restaurantFav) {
-					var url =  restaurantFav._id;
-					var data = {
-
-							name : restaurantFav.name,
-					        paragraph : restaurantFav.paragraph,
-					        type: restaurantFav.type,
-					        direction: restaurantFav.direction,
-					        menu:restaurantFav.menu,
-					        favoriteCard:  true,
-					        _id : restaurantFav._id
-							
-					};
-					//restaurants.unshift(data);
-
-					var i=0;
-
-					while( restaurants[i]._id != data._id && i<restaurants.length){
-						console.log(restaurants[i]._id +"==="+ data._id)
-					
-						i++;
-
-					}
-
-					restaurants[i]=data;
 
 
 
+(function() {
 
+	var base = '/restaurants/';
+	var restaurants;
+	
+	Polymer('restaurant-model', {
+		created: function() {
+			if (!restaurants) {
+				doAjax({}, function(data) {
+					data.reverse();
+        			restaurants= data;
+					this.restaurants = restaurants; // sirve para q la var restaurants sea accesible desde fuera de restaurant model
+				}.bind(this));
+			}
+		},
 
-					doAjax({type: 'PUT', url: url, data: JSON.stringify(data)}, function() {}.bind(this));
-				}
-			});
-		}());
+		newRestaurant: function(detail) {
+			doAjax({type: 'POST', data: JSON.stringify(detail)}, function(data,status) {
+				restaurants.unshift(data);
+			}.bind(this));
+		},
+		
+		setRestaurant: function(restaurantFav) {
+			var url =  restaurantFav._id;
+			var data = {
+				name : restaurantFav.name,
+		        paragraph : restaurantFav.paragraph,
+		        type: restaurantFav.type,
+		        direction: restaurantFav.direction,
+		        menu:restaurantFav.menu,
+		        favoriteCard:  true,
+		        _id : restaurantFav._id		
+			};
+			var i=0;
+			while( restaurants[i]._id != data._id && i<restaurants.length){
+				console.log(restaurants[i]._id +"==="+ data._id)
+				i++;
+			}
+			restaurants[i]=data;
+			doAjax({type: 'PUT', url: url, data: JSON.stringify(data)}, function() {}.bind(this));
+		}
+	});
+}());
     </script>
 
 
