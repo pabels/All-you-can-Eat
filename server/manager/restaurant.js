@@ -4,7 +4,7 @@ var daoRestaurant = require('../dao/restaurant');
 
 
 function create(restaurant, callback) {
-	console.log(restaurant.name);
+	console.log(restaurant.owner+ ' OooOooOOOooooo0o0o');
 	daoRestaurant.create(restaurant, callback);
 }
 

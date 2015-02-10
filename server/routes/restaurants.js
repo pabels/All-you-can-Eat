@@ -15,7 +15,7 @@ module.exports = function (app) {
   			menu:  req.body.menu,
   			direction: req.body.direction,
   			favoriteCard: req.body.favoriteCard,
-  			owner: localStorage.token
+  			owner: req.user.id
 		};
 
 		restaurantManager.create(rest, function(err, restaurant) { 
@@ -105,7 +105,7 @@ module.exports = function (app) {
 	app.get('/restaurants', findAllRestaurantRs);
 	app.get('/restaurants/:id', findById);
 	app.post('/restaurants', ensureAuth, addRestaurantR);
-	app.put('/restaurants/:id',updateRestaurant);
-	app.delete('/restaurants/:id',ensureAuth, ensureOwner, deleteRestaurant);
+	app.put('/restaurants/:id', ensureAuth, updateRestaurant);
+	app.delete('/restaurants/:id', deleteRestaurant);
 
 };
