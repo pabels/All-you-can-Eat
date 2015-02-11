@@ -14,6 +14,10 @@
 <link rel="import" href="./restaurant-card.html">
 <link rel="import" href="./restaurant-model.html">
 <link rel="import" href="app-login.html">
+<link rel="import" href="./restaurant-controls.html">
+<link rel="import" href="./dialog-update.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+
 
 
 <polymer-element name="main-app">
@@ -126,7 +130,7 @@ background-color: teal;
        <core-animated-pages selected="{{route}}" valueattr="hash" transitions="slide-from-right">
             <section hash="restaurants" layout vertical center-center>
 
-            <restaurant-list id="restaurantList"  show="restaurants" restaurantList="{{restaurant_model.restaurants}}" on-favorite-updated="{{handleFavoriteChanged}}"></restaurant-list>
+            <restaurant-list id="restaurantList"  show="restaurants" restaurantList="{{restaurant_model.restaurants}}" on-favorite-updateddd="{{handleFavoriteChanged}}" on-restaurant-deleted="{{handleRestaurantDelete}}"></restaurant-list>
 
             </section>
 
@@ -174,7 +178,10 @@ background-color: teal;
      goHome: function(){
         window.navigate('#restaurants');
      },
-    
+    handleRestaurantDelete: function(event,detail){
+      this.restaurant_model.deleteRestaurant(detail);
+
+    },
      handleFavoriteChanged: function(event,detail){
       this.restaurant_model.setRestaurant(detail);
      },

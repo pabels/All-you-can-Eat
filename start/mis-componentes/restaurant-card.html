@@ -1,6 +1,5 @@
-  <link rel="import" href="../../bower_components/core-icon-button/core-icon-button.html">
 
-<polymer-element name="restaurant-card" attributes="restaurantObject">
+<polymer-element name="restaurant-card" attributes="restaurantObject"  >
 
   <template>
    <style>
@@ -45,15 +44,7 @@
       margin-left: 35px;
       text-align: center;
     }
-    core-icon-button{
-      position: absolute;
-      top: 3px;
-      right: 3px;
-
-    }
-    #favicon{
-      color:black;
-    }
+   
     
    </style>
     <div class="card-header" layout horizontal center>
@@ -64,46 +55,18 @@
          </div>
     </div>
 
-    <core-icon-button id="favicon" icon="star" on-tap="{{setFavorite}}"> </core-icon-button>
-    <span><core-icon-button id="favicon" icon="create"></core-icon-button></span>
-    <span><core-icon-button id="favicon" icon="delete"></core-icon-button></span>
+    <restaurant-controls restaurantfav="{{restaurantObject.favoriteCard}}"></restaurant-controls>
+      <dialog-update restaurantId="{{restaurantObject._id}}" owner="{{restaurantObject.owner}}"></dialog-update>
     
   </template>
   <script>
 
   Polymer({
-         
-
-        setFavorite: function(){
-          this.$.favicon.style.color='red';
-          
-          this.fire('favorite-updated', this.restaurantObject);
-          // console.log("---------------------------------->",this.restaurantObject._id);
-           
-           },
+    ready : function(){
      
-
-      ready : function(){
-        //this.$.favicon.style.color='black';
-
-          if(this.restaurantObject.favoriteCard){
-            this.$.favicon.style.color='red';
-          }else{
-            this.$.favicon.style.color='black';
-          }
-      
-
-      }
-
-
-
-
-  
-
-
-
-
-
+    }
+   
   });
+
   </script>
 </polymer-element>

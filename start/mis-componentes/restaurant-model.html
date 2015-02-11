@@ -28,7 +28,12 @@
 				restaurants.unshift(data);
 			}.bind(this));
 		},
+		deleteRestaurant: function(restaurant){
+			doAjax({type: 'DELETE', url: restaurant._id}, function(data){
+				console.log('deleted' + data);
+			}.bind(this));
 		
+		},
 		setRestaurant: function(restaurantFav) {
 			var url =  restaurantFav._id;
 			var data = {

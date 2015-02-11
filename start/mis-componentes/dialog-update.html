@@ -1,0 +1,40 @@
+<polymer-element name="dialog-update" attributes="restaurantId owner" on-restaurant-edited="{{openDialog}}">
+ <template>
+   <style>
+  #dialog{
+          margin-left: 333px;
+width: 720px;
+      }
+
+
+</style>
+
+<paper-dialog id="dialog" transition="core-transition-center" opened="false" backdrop="true">
+         <div  horizontal center-justified layout>            
+
+            <paper-input label="new Restaurant" id="edit_name" floatingLabel="true"></paper-input>
+            <paper-input label="Edit paragraph" id="edit_paragraph" floatingLabel="true"></paper-input>
+         </div>
+         <div  horizontal center-justified layout>
+              <paper-button id="boton">modify
+          </paper-button> 
+         </div>
+      </paper-dialog>
+      
+
+   </template>
+ <script>
+Polymer({
+	 openDialog : function(){
+
+      this.$.dialog.opened="true";
+
+
+
+
+
+    }
+
+});
+ </script>
+</polymer-element>

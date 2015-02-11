@@ -1,0 +1,60 @@
+
+
+<polymer-element name="restaurant-controls" attributes="favoriteCard">
+ <template>
+   <style>
+ core-icon-button{
+      top: 3px;
+      right: 3px;
+      position: absolute;
+
+    }
+    #favicon{
+      color:black;
+    }
+    #create{
+      position: initial;
+      margin-left: 544px;
+      margin-top: -153px;
+    }
+    #delete{
+      position: initial;
+      margin-left: 500px;
+      margin-top: -153px;
+    }
+
+
+   </style>
+   <core-icon-button id="favicon" icon="star" > </core-icon-button>
+    <core-icon-button  id="create" icon="create" on-tap="{{fireEdit}}"></core-icon-button>
+    <core-icon-button id="delete" icon="delete" on-tap="{{fireDeleted}}"></core-icon-button>
+
+
+   </div>
+ </template>
+ <script>
+Polymer({
+
+      ready : function(){
+      	 //this.$.favicon.style.color='black';
+
+          if(this.favoriteCard){
+            this.$.favicon.style.color='red';
+          }else{
+            this.$.favicon.style.color='black';
+          }
+        },
+	 fireEdit: function(){
+          this.$.favicon.style.color='red';
+          this.fire('restaurant-edited');           
+           },
+     fireDeleted: function(){
+          this.fire('restaurant-deleted');           
+           }
+           
+
+
+
+});
+ </script>
+</polymer-element>
