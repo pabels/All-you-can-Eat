@@ -56,7 +56,7 @@
 			}
 
 			Polymer({
-				logged: false,
+				logged: new Boolean(false),
 				ready: function() {
 					this.logged = new Boolean(localStorage.token);
 					/*if (this.logged) {
@@ -69,6 +69,7 @@
 						this.logged = true;
 						//socket.connect(data.token);
 						//showMsg('logged');
+						document.location.reload();
 					}.bind(this)).fail(function() {
 						delete localStorage.token;
 						this.logged = false;
@@ -78,12 +79,15 @@
 					alert('bye');
 					delete localStorage.token;
 					this.logged = false;
+        document.location.reload();
+					
 					//if (socket) {
 					//	socket.disconnect();
 					//}
 
 					
 				}
+
 			});
 		}());
   </script>

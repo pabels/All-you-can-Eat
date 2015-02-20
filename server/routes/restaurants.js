@@ -72,6 +72,7 @@ module.exports = function (app) {
   			type:  req.body.type,
   			menu:  req.body.menu,
   			direction: req.body.direction,
+  			owner: req.body.owner,
   			favoriteCard: req.body.favoriteCard},
   			function(err) { 
 				if(!err){
@@ -87,7 +88,8 @@ module.exports = function (app) {
 
 
 	deleteRestaurant = function(req, res){
-		restaurantId = req.params.id ;
+		//ALgo del req.body o req.param falla
+		restaurantId = req.body._id ;
 		restaurantManager.deleteRestaurant(restaurantId,function(err, restaurant){
 			if(!err){
 					console.log('Deleting restaurant by id');
@@ -105,7 +107,7 @@ module.exports = function (app) {
 	app.get('/restaurants', findAllRestaurantRs);
 	app.get('/restaurants/:id', findById);
 	app.post('/restaurants', ensureAuth, addRestaurantR);
-	app.put('/restaurants/:id', ensureAuth, updateRestaurant);
-	app.delete('/restaurants/:id', ensureAuth, deleteRestaurant);
+	app.put('/restaurants/:id', ensureAuth,ensureOwner ,updateRestaurant);
+	app.delete('/restaurants/:id', ensureAuth,ensureOwner, deleteRestaurant);
 
 };

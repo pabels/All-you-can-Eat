@@ -1,5 +1,5 @@
 
-<polymer-element name="restaurant-card" attributes="restaurantObject"  >
+<polymer-element name="restaurant-card" attributes="restaurantObject"  on-restaurant-edited="{{openDialog}}" >
 
   <template>
    <style>
@@ -55,15 +55,25 @@
          </div>
     </div>
 
-    <restaurant-controls restaurantfav="{{restaurantObject.favoriteCard}}"></restaurant-controls>
-      <dialog-update restaurantId="{{restaurantObject._id}}" owner="{{restaurantObject.owner}}"></dialog-update>
+    <restaurant-controls restaurant="{{restaurantObject}}"></restaurant-controls>
+      <dialog-update  id="dialog_update" restaurantId="{{restaurantObject._id}}" owner="{{restaurantObject.owner}}"></dialog-update>
     
   </template>
   <script>
 
   Polymer({
     ready : function(){
+      console.log(this.restaurantObject.owner+ 'owner de card++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
      
+    },
+    openDialog : function(){
+      console.log ( 'lanzateeeeeeee');
+      this.$.dialog_update.openningDialog();
+
+
+
+
+
     }
    
   });

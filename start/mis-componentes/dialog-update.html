@@ -1,4 +1,4 @@
-<polymer-element name="dialog-update" attributes="restaurantId owner" on-restaurant-edited="{{openDialog}}">
+<polymer-element name="dialog-update" attributes="restaurantId owner"  >
  <template>
    <style>
   #dialog{
@@ -9,31 +9,43 @@ width: 720px;
 
 </style>
 
-<paper-dialog id="dialog" transition="core-transition-center" opened="false" backdrop="true">
+<paper-dialog id="dialog" transition="core-transition-center" opened="false">
          <div  horizontal center-justified layout>            
 
-            <paper-input label="new Restaurant" id="edit_name" floatingLabel="true"></paper-input>
+            <paper-input label="new Restaurant" id="edit_name" floatingLabel="true" autofocus></paper-input>
             <paper-input label="Edit paragraph" id="edit_paragraph" floatingLabel="true"></paper-input>
          </div>
          <div  horizontal center-justified layout>
-              <paper-button id="boton">modify
-          </paper-button> 
+              <paper-button id="boton" on-click="{{modify}}">modify</paper-button> 
          </div>
-      </paper-dialog>
+ </paper-dialog>
       
 
    </template>
  <script>
 Polymer({
-	 openDialog : function(){
+	 openningDialog :function(){
+    this.$.dialog.opened ="true";
+    console.log('soy dialog update');
+   },
+   modify: function(){
+   this.restaurantUpdated = { name : this.$.edit_name.value,
+                                   paragraph : this.$.edit_paragraph.value,
+                                    image: "" ,
+                                    type:  "",
+                                    menu: "",
+                                    direction: "",
+                                    favoriteCard: false,
+                                    owner : this.owner,
+                                    _id : this.restaurantId
+                                    };
+                                    
+       this.fire("restaurant-update", this.restaurantUpdated);
+     }
 
-      this.$.dialog.opened="true";
 
 
-
-
-
-    }
+   
 
 });
  </script>

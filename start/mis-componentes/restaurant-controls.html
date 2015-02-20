@@ -1,6 +1,6 @@
 
 
-<polymer-element name="restaurant-controls" attributes="favoriteCard">
+<polymer-element name="restaurant-controls" attributes="restaurant">
  <template>
    <style>
  core-icon-button{
@@ -25,7 +25,7 @@
 
 
    </style>
-   <core-icon-button id="favicon" icon="star" > </core-icon-button>
+   <core-icon-button id="favicon" icon="star" on-tap="{{fireFavorite}}" > </core-icon-button>
     <core-icon-button  id="create" icon="create" on-tap="{{fireEdit}}"></core-icon-button>
     <core-icon-button id="delete" icon="delete" on-tap="{{fireDeleted}}"></core-icon-button>
 
@@ -38,18 +38,22 @@ Polymer({
       ready : function(){
       	 //this.$.favicon.style.color='black';
 
-          if(this.favoriteCard){
+          if(this.restaurant.favoriteCard){
             this.$.favicon.style.color='red';
           }else{
             this.$.favicon.style.color='black';
           }
         },
+        fireFavorite: function (){
+            this.$.favicon.style.color='red';
+
+        },
 	 fireEdit: function(){
-          this.$.favicon.style.color='red';
-          this.fire('restaurant-edited');           
+          this.fire('restaurant-edited'); 
+                    
            },
      fireDeleted: function(){
-          this.fire('restaurant-deleted');           
+          this.fire('restaurant-deleted', this.restaurant);           
            }
            
 

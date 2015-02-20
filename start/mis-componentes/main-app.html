@@ -8,6 +8,9 @@
 <link rel="import" href="../../bower_components/core-icon-button/core-icon-button.html">
 <link rel="import" href="../../bower_components/core-animated-pages/transitions/slide-from-right.html">
 <link rel="import" href="../../bower_components/core-animated-pages/core-animated-pages.html"> 
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/paper-elements/paper-elements.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog-transition.html">
 <link rel="import" href="./restaurant-list.html">
 <link rel="import" href="./formulario-register.html">
 <link rel="import" href="./formulario-updated.html">
@@ -16,11 +19,13 @@
 <link rel="import" href="app-login.html">
 <link rel="import" href="./restaurant-controls.html">
 <link rel="import" href="./dialog-update.html">
-<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="./search-button.html">
 
 
 
-<polymer-element name="main-app">
+
+
+<polymer-element name="main-app" >
 <template>
   <style>
   href{
@@ -113,7 +118,7 @@ background-color: teal;
       </core-toolbar>
        <core-menu valueattr="hash" selected="{{route}}" on-core-select="{{menuItemSelected}}">
        <template repeat="{{page in pages}}">
-         <paper-item icon="label{{route != page.hash ? '-outline' : ''}}" label="{{page.name}}" hash="{{page.hash}}"  hidden?="{{page.hash=='updated' && !$.login.logged || page.hash=='register' && !$.login.logged}}">
+         <paper-item icon="label{{route != page.hash ? '-outline' : ''}}" label="{{page.name}}" hash="{{page.hash}}"  hidden?="{{page.hash!='restaurants' && !loggedon}}">
             <a href="#{{page.hash}}"></a>
           </paper-item>
         </template>
@@ -121,16 +126,16 @@ background-color: teal;
     </nav>
      <core-toolbar  tool flex id ="cabezera">
       <div flex ></div>
-        <core-icon-button icon="search"></core-icon-button>
-      <core-icon-button icon="settings-power" on-click="{{handleLogout}}"></core-icon-button>
-      <core-icon-button id="add" icon="perm-identity" on-click="{{fireLogin}}" ></core-icon-button>
+        <search-button ></search-button>
+        <core-icon-button icon="settings-power" on-click="{{handleLogout}}"></core-icon-button>
+        <core-icon-button id="add" icon="perm-identity" on-click="{{fireLogin}}" ></core-icon-button>
     </core-toolbar>
 
      <div layout horizontal center-center fit>
        <core-animated-pages selected="{{route}}" valueattr="hash" transitions="slide-from-right">
             <section hash="restaurants" layout vertical center-center>
 
-            <restaurant-list id="restaurantList"  show="restaurants" restaurantList="{{restaurant_model.restaurants}}" on-favorite-updateddd="{{handleFavoriteChanged}}" on-restaurant-deleted="{{handleRestaurantDelete}}"></restaurant-list>
+            <restaurant-list id="restaurantList"  show="restaurants" restaurantList="{{restaurant_model.restaurants}}" on-favorite-updateddd="{{handleFavoriteChanged}}" on-restaurant-deleted="{{handleRestaurantDelete}}" on-restaurant-update="{{handleRestaurantUpdated}}"></restaurant-list>
 
             </section>
 
@@ -142,12 +147,10 @@ background-color: teal;
             <section  hash="top-10">
                <h1>Ranking of restaurants with more votes</h1>
             </section>
-            <section  hash="register">
+            <section  hash="create">
               <formulario-register on-restaurant-created="{{handleCreateRestaurant}}"> </formulario-register>
             </section>
-             <section  hash="updated">
-              <formulario-updated> </formulario-updated>
-            </section>
+            
        </core-animated-pages>
      </div>
  </core-scaffold>
@@ -160,14 +163,18 @@ background-color: teal;
             {name: 'Restaurants', hash: 'restaurants'},
             {name: 'Favourites', hash: 'favorites'},
             {name: 'Top-10', hash: 'top-10'},
-            {name: 'Register', hash: 'register'},
-            {name: 'Update', hash: 'updated'}
+            {name: 'Create', hash: 'create'}
+            
             ];
         this.route = this.route || DEFAULT_ROUTE;
       }
       
   Polymer({
-
+    
+      loggedon: true,
+      created: function(){
+        localStorage.token !== undefined ? this.loggedon = true : this.loggedon = false;
+      },
       ready: function () {
         this.restaurant_model = this.$.restaurantModel;
         this.login =this.$.login;
@@ -175,10 +182,12 @@ background-color: teal;
         loadPages.bind(this)();
         
       },
+      
      goHome: function(){
         window.navigate('#restaurants');
      },
     handleRestaurantDelete: function(event,detail){
+
       this.restaurant_model.deleteRestaurant(detail);
 
     },
@@ -188,6 +197,9 @@ background-color: teal;
      handleCreateRestaurant: function(event, detail){
       this.restaurant_model.newRestaurant(detail);
     
+    },
+    handleRestaurantUpdated : function(event, detail){
+      this.restaurant_model.updateRestaurant(detail);
     },
       
      fireLogin: function() {
@@ -202,12 +214,15 @@ background-color: teal;
 
       handleLogout: function(){
         this.$.add.icon="perm-identity";
-        this.login.logout();   
+        this.login.logout();
       },
       menuItemSelected: function (e, detail, sender) {
           if (detail.isSelected) {
             this.$.scaffold.closeDrawer();
           }
+      },
+      isMine : function (){
+
       }
  });
 

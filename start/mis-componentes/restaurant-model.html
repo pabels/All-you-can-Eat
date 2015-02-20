@@ -30,11 +30,12 @@
 		},
 		deleteRestaurant: function(restaurant){
 			doAjax({type: 'DELETE', url: restaurant._id}, function(data){
-				console.log('deleted' + data);
+				console.log('model-deleted' + data );
 			}.bind(this));
 		
 		},
 		setRestaurant: function(restaurantFav) {
+			
 			var url =  restaurantFav._id;
 			var data = {
 				name : restaurantFav.name,
@@ -43,15 +44,36 @@
 		        direction: restaurantFav.direction,
 		        menu:restaurantFav.menu,
 		        favoriteCard:  true,
-		        _id : restaurantFav._id		
+		        _id : restaurantFav._id,
+
 			};
 			var i=0;
 			while( restaurants[i]._id != data._id && i<restaurants.length){
-				console.log(restaurants[i]._id +"==="+ data._id)
+				console.log(restaurants[i]._id +"==="+ data._id);
 				i++;
 			}
-			restaurants[i]=data;
+			if(localStorage.token){
+			restaurants[i]=data;	
+			}
+			
 			doAjax({type: 'PUT', url: url, data: JSON.stringify(data)}, function() {}.bind(this));
+		},
+
+		updateRestaurant: function(data){
+			alert(data.owner);
+				var url =  data._id;
+				var i=0;
+			while( restaurants[i]._id != data._id && i<restaurants.length){
+				console.log(restaurants[i]._id +"==="+ data._id);
+				i++;
+			}
+			if(localStorage.token){
+			restaurants[i]=data;	
+			}
+				doAjax({type: 'PUT', url: url, data: JSON.stringify(data)}, function() {}.bind(this));
+
+
+
 		}
 	});
 }());

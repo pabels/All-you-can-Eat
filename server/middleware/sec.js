@@ -34,8 +34,10 @@ function ensureAuthenticated(req, res, next) {
  * Check if the user is the owner of the restaurant, in other case FORBIDDEN
  */
 function ensureOwner(req, res, next) {
-	var restaurantId = req.params._id;
-	var userId = req.owner._id;
+	console.log(req);
+	var restaurantId = req.body._id;
+	var userId = req.body.owner;
+	
 	if (!restaurantId && !userId) {
 		console.log('ensureOwner Invalid[' + restaurantId + '] or userId[' + userId + ']');
 		return res.status(500).send('Invalid user or restaurant');
