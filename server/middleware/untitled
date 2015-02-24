@@ -1,0 +1,44 @@
+
+Node server running on http://localhost:8080
+Connected to Database
+Restaurants retrieved
+{ provider: 'google',
+  id: '116476237660032067797',
+  displayName: 'Maurice Dominguez',
+  name: { familyName: 'Dominguez', givenName: 'Maurice' },
+  emails: [ {} ],
+  _raw: '{\n "id": "116476237660032067797",\n "name": "Maurice Dominguez",\n "given_name": "Maurice",\n "family_name": "Dominguez",\n "link": "https://plus.google.com/116476237660032067797",\n "picture": "https://lh6.googleusercontent.com/-Vr2ybWS3fdI/AAAAAAAAAAI/AAAAAAAAAZ8/HhWrnmxQoRg/photo.jpg",\n "gender": "male",\n "locale": "es"\n}\n',
+  _json: 
+   { id: '116476237660032067797',
+     name: 'Maurice Dominguez',
+     given_name: 'Maurice',
+     family_name: 'Dominguez',
+     link: 'https://plus.google.com/116476237660032067797',
+     picture: 'https://lh6.googleusercontent.com/-Vr2ybWS3fdI/AAAAAAAAAAI/AAAAAAAAAZ8/HhWrnmxQoRg/photo.jpg',
+     gender: 'male',
+     locale: 'es' } }
+invalid owner restaurant[116476237660032067797 logged user[undefined]
+^Cmauri@mauri-SVF14A1C5E ~/GITHUB/All-you-can-Eat $ node server/server.js 
+***************
+Node server running on http://localhost:8080
+Connected to Database
+Restaurants retrieved
+116476237660032067797esta es la ide++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+{ provider: 'google',
+  id: '116476237660032067797',
+  displayName: 'Maurice Dominguez',
+  name: { familyName: 'Dominguez', givenName: 'Maurice' },
+  emails: [ {} ],
+  _raw: '{\n "id": "116476237660032067797",\n "name": "Maurice Dominguez",\n "given_name": "Maurice",\n "family_name": "Dominguez",\n "link": "https://plus.google.com/116476237660032067797",\n "picture": "https://lh6.googleusercontent.com/-Vr2ybWS3fdI/AAAAAAAAAAI/AAAAAAAAAZ8/HhWrnmxQoRg/photo.jpg",\n "gender": "male",\n "locale": "es"\n}\n',
+  _json: 
+   { id: '116476237660032067797',
+     name: 'Maurice Dominguez',
+     given_name: 'Maurice',
+     family_name: 'Dominguez',
+     link: 'https://plus.google.com/116476237660032067797',
+     picture: 'https://lh6.googleusercontent.com/-Vr2ybWS3fdI/AAAAAAAAAAI/AAAAAAAAAZ8/HhWrnmxQoRg/photo.jpg',
+     gender: 'male',
+     locale: 'es' } }
+Deleting restaurant by id
+express deprecated res.send(status): Use res.sendStatus(status) instead server/routes/restaurants.js:96:10
+Restaurant deleted

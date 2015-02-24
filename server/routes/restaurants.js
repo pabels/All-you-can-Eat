@@ -15,7 +15,8 @@ module.exports = function (app) {
   			menu:  req.body.menu,
   			direction: req.body.direction,
   			favoriteCard: req.body.favoriteCard,
-  			owner: req.user.id
+  			owner: req.user.id ,
+  			picture : req.user._json.picture
 		};
 
 		restaurantManager.create(rest, function(err, restaurant) { 
@@ -62,6 +63,22 @@ module.exports = function (app) {
 		});
 
 	}
+	///////////////////////nueva funcion/////////////////////////////////////////
+
+	function findByName(req, res){
+		var restaurantName = req.params.name;
+		restaurantManager.findName(restaurantId,function(err, restaurant){
+			if(!err){
+					console.log('Getting restaurants by name');
+					res.send(restaurant);
+				}else{
+                    console.log('Error' + err);
+				    res.status(500).send('Error');
+				}
+
+		});
+
+	}
 	
 	
 	updateRestaurant = function(req, res){
@@ -88,12 +105,12 @@ module.exports = function (app) {
 
 
 	deleteRestaurant = function(req, res){
-		//ALgo del req.body o req.param falla
-		restaurantId = req.body._id ;
-		restaurantManager.deleteRestaurant(restaurantId,function(err, restaurant){
+		//el problema esque el ide se pasa por params
+		restaurantId = req.params.id ;
+		restaurantManager.deleteRestaurant(restaurantId,function(err,data){
 			if(!err){
 					console.log('Deleting restaurant by id');
-					res.send(restaurant);
+					res.send(data);
 					console.log('Restaurant deleted');
 				}else{
                     console.log('Error' + err);
@@ -108,6 +125,10 @@ module.exports = function (app) {
 	app.get('/restaurants/:id', findById);
 	app.post('/restaurants', ensureAuth, addRestaurantR);
 	app.put('/restaurants/:id', ensureAuth,ensureOwner ,updateRestaurant);
-	app.delete('/restaurants/:id', ensureAuth,ensureOwner, deleteRestaurant);
+	app.delete('/restaurants/:id',ensureAuth ,ensureOwner , deleteRestaurant);
+
+	//nuevo ruter para buscar por una exprecion regular
+		app.get('/restaurants/:name', findByName);
+		//PREGUNTAR A JAVIER COMO ES POIBLE Q DESPUES DE HACER UNA PETICION AJAX POR GET BY ALGO SEPA QUE ESE ALG ES UN ID Y NO UN NANR
 
 };

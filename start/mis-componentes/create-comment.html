@@ -1,0 +1,89 @@
+<polymer-element name="create-comment" attributes="restaurant" >
+
+ <template>
+   <style>
+ 
+   #content{
+       width: 200px;
+       text-align: center;
+       font-size: 20px;
+       margin: 3px;
+   }
+   paper-input{
+    margin-left: -168px;
+   }
+   #done{
+    margin-right: -93px;
+   }
+
+   </style>
+    
+    <center>
+  
+    <core-icon-button icon="add-circle" on-click="{{openToggle}}"></core-icon-button>
+      <core-collapse id="collapse2" class="" style="overflow: hidden; height: auto;">
+          <div id="content" layout horizontal center>
+            <paper-input  id="comment" floatingLabel="true"></paper-input> <core-icon-button id="done" icon="done" on-click="{{pushComment}}"></core-icon-button>
+            
+          </div>
+       </paper-input-decorator>
+    
+ 
+    
+
+    </core-collapse> 
+   
+    </center>
+  
+     
+
+
+
+</template>
+  <script>
+
+  Polymer({
+      
+    created: function(){
+      
+
+     },
+
+    ready : function(){
+
+    },
+
+    openToggle : function(){
+      this.$.collapse2.toggle();
+
+    },
+    pushComment : function (){
+      
+
+      var comment = {
+                        picure:"https://lh6.googleusercontent.com/-Vr2ybWS3fdI/AAAAAAAAAAI/AAAAAAAAAZ8/HhWrnmxQoRg/photo.jpg",
+                        link : "https://plus.google.com/116476237660032067797",
+                        name : "maurice ronet",
+                        comment : this.$.comment.value
+                     };
+       
+      console.log("comentario de creater"+comment);
+      this.fire('comment-created', comment); 
+
+        this.clearComennt();
+         this.openToggle();
+
+    },
+    
+    clearComennt :function (){
+
+      this.$.comment.value = "";
+    }
+    
+   
+  });
+
+
+
+  </script>
+</polymer-element>

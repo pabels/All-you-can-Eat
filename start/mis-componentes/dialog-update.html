@@ -1,4 +1,4 @@
-<polymer-element name="dialog-update" attributes="restaurantId owner"  >
+<polymer-element name="dialog-update" attributes="restaurant"  >
  <template>
    <style>
   #dialog{
@@ -24,6 +24,11 @@ width: 720px;
    </template>
  <script>
 Polymer({
+
+    ready : function(){
+      
+
+    },
 	 openningDialog :function(){
     this.$.dialog.opened ="true";
     console.log('soy dialog update');
@@ -31,15 +36,17 @@ Polymer({
    modify: function(){
    this.restaurantUpdated = { name : this.$.edit_name.value,
                                    paragraph : this.$.edit_paragraph.value,
-                                    image: "" ,
+                                    image: this.restaurant.image ,
                                     type:  "",
                                     menu: "",
                                     direction: "",
                                     favoriteCard: false,
-                                    owner : this.owner,
-                                    _id : this.restaurantId
+                                    owner : this.restaurant.owner,
+                                    _id : this.restaurant._id,
+                                    picture : this.restaurant.picture
                                     };
                                     
+                                    console.log(this.restaurant);
        this.fire("restaurant-update", this.restaurantUpdated);
      }
 

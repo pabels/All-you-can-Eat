@@ -9,6 +9,7 @@
         text-align: center;
         width: 9em;
         font-family: Allura-Regular;
+        margin: 2px;
 
       }
       paper-button{
@@ -32,14 +33,16 @@
         z-index: 0;
         font-family: Allura-Regular;
       }
+     
     </style>
     
-  		<div  horizontal center-justified layout>
+  		<div  vertical center layout>
              
              <paper-input label="Your Restaurant" id="name" floatingLabel="true"></paper-input>
              <paper-input label="Your paragraph" id="paragraph" floatingLabel="true"></paper-input>
-        </div>
-        <div  horizontal center-justified layout>
+             <paper-input label="url image" id="image" floatingLabel="true"></paper-input>
+        
+        
               <paper-button id="boton" on-tap="{{CreateRestaurant}}">enviar</paper-button> 
         </div>
 
@@ -51,15 +54,21 @@
    Polymer({
 
         CreateRestaurant: function(){
+          //preguntar a  hen como borra los campos del for luego
           var nameString = this.$.name.value;
           var  paragraphString= this.$.paragraph.value;
-          console.log('formulario-register crearRestaurant');
+          var  image= this.$.image.value;
+
           var newRestaurant = { name : nameString,
-            paragraph : paragraphString , type: "" , menu : "", direction : "", favoriteCard : false };
-            console.log(newRestaurant.name+ newRestaurant.paragraph+ ' CREATED');
+            paragraph : paragraphString , type: "" , menu : "", direction : "", favoriteCard : false ,image:image};
+        
            this.fire('restaurant-created', newRestaurant); 
-           //socket.emit('restaurant-created', function(){
-           //});
+
+           this.$.name.value="";
+          this.$.paragraph.value="";
+          this.$.image.value="";
+           
+
         }
         
    });

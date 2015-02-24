@@ -22,12 +22,21 @@
       margin-left: 500px;
       margin-top: -153px;
     }
+    #pictureOwner {
+      position: initial;
+      margin-left: 458px;
+      margin-top: -149px;
+      height: 40px;
+      width: 40px;
+      margin-bottom: 20px;
+      }
 
 
    </style>
-   <core-icon-button id="favicon" icon="star" on-tap="{{fireFavorite}}" > </core-icon-button>
+   <core-icon-button id="favicon" icon="star"  > </core-icon-button>
     <core-icon-button  id="create" icon="create" on-tap="{{fireEdit}}"></core-icon-button>
     <core-icon-button id="delete" icon="delete" on-tap="{{fireDeleted}}"></core-icon-button>
+    <img id="pictureOwner" src="{{restaurant.picture}}">
 
 
    </div>
@@ -44,10 +53,7 @@ Polymer({
             this.$.favicon.style.color='black';
           }
         },
-        fireFavorite: function (){
-            this.$.favicon.style.color='red';
-
-        },
+        
 	 fireEdit: function(){
           this.fire('restaurant-edited'); 
                     

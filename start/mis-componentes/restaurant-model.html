@@ -16,6 +16,8 @@
 		created: function() {
 			if (!restaurants) {
 				doAjax({}, function(data) {
+
+
 					data.reverse();
         			restaurants= data;
 					this.restaurants = restaurants; // sirve para q la var restaurants sea accesible desde fuera de restaurant model
@@ -26,14 +28,30 @@
 		newRestaurant: function(detail) {
 			doAjax({type: 'POST', data: JSON.stringify(detail)}, function(data,status) {
 				restaurants.unshift(data);
+				console.log(data.picture);
 			}.bind(this));
 		},
 		deleteRestaurant: function(restaurant){
-			doAjax({type: 'DELETE', url: restaurant._id}, function(data){
-				console.log('model-deleted' + data );
+			doAjax({type: 'DELETE', url: restaurant._id}, function(data,status){
+				console.log("+++++++++++++++++++++++++++++++++++++++++++++");
+				var i = this.restaurants.indexOf(data);
+
+						if (i >= 0) {
+							this.restaurants.splice(i, 1);
+						}	
+			
 			}.bind(this));
+			console.log('chucheeeeeeeeeeeee');
+
+			var i = this.restaurants.indexOf(restaurant);
+						if (i >= 0) {
+							this.restaurants.splice(i, 1);
+						}	
+			
+
 		
 		},
+
 		setRestaurant: function(restaurantFav) {
 			
 			var url =  restaurantFav._id;

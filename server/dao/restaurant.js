@@ -14,6 +14,11 @@ function findById(restaurantId, callback){
 	RestaurantR.findById(restaurantId, callback);
 }
 
+////////////////////////////aqui ver el buscar de la documentacion de monguse/////////////////////////////7
+function findName(restaurantName, callback){
+	RestaurantR.find(restaurantName, callback);
+}
+
 function updateRestaurant(restaurantId, newRestaurant, callback){
 	RestaurantR.update({_id: restaurantId},{$set:{name: newRestaurant.name,paragraph: newRestaurant.paragraph,
  			 images:   newRestaurant.images, type: newRestaurant.type,

@@ -4,7 +4,6 @@ var daoRestaurant = require('../dao/restaurant');
 
 
 function create(restaurant, callback) {
-	console.log(restaurant.owner+ ' OooOooOOOooooo0o0o');
 	daoRestaurant.create(restaurant, callback);
 }
 
@@ -15,6 +14,10 @@ function findAll(callback) {
 
 function findById(restaurantId, callback){
 	daoRestaurant.findById(restaurantId, callback);
+}
+/////////////////////nueva funcion////////////////////////7
+function findName(restaurantName, callback){
+	daoRestaurant.findName(restaurantName, callback);
 }
 
 

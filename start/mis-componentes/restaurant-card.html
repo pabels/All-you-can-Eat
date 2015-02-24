@@ -1,5 +1,5 @@
 
-<polymer-element name="restaurant-card" attributes="restaurantObject"  on-restaurant-edited="{{openDialog}}" >
+<polymer-element name="restaurant-card" attributes="restaurantObject"  on-restaurant-edited="{{openDialog}}"  >
 
   <template>
    <style>
@@ -44,36 +44,78 @@
       margin-left: 35px;
       text-align: center;
     }
+    #card{
+      border-radius: 20%;
+    }
    
     
    </style>
     <div class="card-header" layout horizontal center>
-      <img src="../images/logo.png" >
+      <img src={{restaurantObject.image}} >
         <div id="muevete">
             <h1>{{restaurantObject.name}}</h1>
             <p>{{restaurantObject.paragraph}}</p>
+            <paper-toggle-button on-change="{{fireOpen}}"></paper-toggle-button>
+
          </div>
     </div>
 
-    <restaurant-controls restaurant="{{restaurantObject}}"></restaurant-controls>
-      <dialog-update  id="dialog_update" restaurantId="{{restaurantObject._id}}" owner="{{restaurantObject.owner}}"></dialog-update>
+    <restaurant-controls restaurant="{{restaurantObject}}"  hidden?="{{!loggedon}}"></restaurant-controls>
+      <dialog-update  id="dialog_update" restaurant="{{restaurantObject}}"></dialog-update>
+
+
+<core-collapse id="collapse1" class="" style="overflow: hidden; height: auto;">
+ <create-comment></create-comment>
+  
+    <comments-list id="comentList"></comments-list>
     
-  </template>
+
+</core-collapse>  
+     
+
+
+
+</template>
   <script>
 
   Polymer({
+     loggedon: true,
+      
+    created: function(){
+        localStorage.token !== undefined ? this.loggedon = true : this.loggedon = false;
+      
+     },
+
+     open : function (){
+     this.$.collapse1.toggle();
+     
+
+     },
+
     ready : function(){
-      console.log(this.restaurantObject.owner+ 'owner de card++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+
+        this.addEventListener('comment-created',function(event, detail, sender){
+          console.log(event.detail+"SOY REST CART ********************************");
+          this.$.comentList.comments.unshift(event.detail);
+        }.bind(this))
+      
+
+
      
     },
     openDialog : function(){
       console.log ( 'lanzateeeeeeee');
       this.$.dialog_update.openningDialog();
+    },
+
+    handlePushComment : function(event,detail){
+      console.log("****************************+"+detail);
 
 
-
-
-
+    },
+    fireOpen : function(){
+      console.log("cerveza cerveza huuuuuuuuuuuu");
+      this.open();
     }
    
   });
