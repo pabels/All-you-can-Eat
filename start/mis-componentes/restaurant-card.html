@@ -30,6 +30,8 @@
       font-weight: bold;
       margin-top: 15px;
       font-family: Allura-Regular;
+      margin-left: -162px;
+
 
     }   
       
@@ -47,6 +49,9 @@
     #card{
       border-radius: 20%;
     }
+    paper-toggle-button::shadow [checked] .toggle-ink {
+  color: teal;
+}
    
     
    </style>
@@ -65,7 +70,7 @@
 
 
 <core-collapse id="collapse1" class="" style="overflow: hidden; height: auto;">
- <create-comment></create-comment>
+ <create-comment restaurant="{{restaurantObject}}"></create-comment>
   
     <comments-list id="comentList"></comments-list>
     
