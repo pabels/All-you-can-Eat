@@ -16,7 +16,8 @@ module.exports = function (app) {
   			direction: req.body.direction,
   			favoriteCard: req.body.favoriteCard,
   			owner: req.user.id ,
-  			picture : req.user._json.picture
+  			picture : req.user._json.picture ,
+  			comments : []
 		};
 
 		restaurantManager.create(rest, function(err, restaurant) { 
@@ -83,18 +84,21 @@ module.exports = function (app) {
 	
 	updateRestaurant = function(req, res){
 		restaurantId = req.params.id ;
-		restaurantManager.updateRestaurant(restaurantId , {name:  req.body.name,
-			 paragraph: req.body.paragraph,
- 			 image:   req.body.image,
-  			type:  req.body.type,
-  			menu:  req.body.menu,
-  			direction: req.body.direction,
-  			owner: req.body.owner,
-  			favoriteCard: req.body.favoriteCard},
-  			function(err) { 
+		
+		restaurantManager.updateRestaurant(restaurantId ,{name:  req.body.name,
+														 paragraph: req.body.paragraph,
+											 			 image:   req.body.image,
+											  			type:  req.body.type,
+											  			menu:  req.body.menu,
+											  			direction: req.body.direction,
+											  			owner: req.body.owner,
+											  			favoriteCard: req.body.favoriteCard,
+											  			comments : req.body.comments},
+  			
+  			function(err,restaurant) { 
 				if(!err){
 				    console.log('Updating restaurant');
-					res.send('Restaurant updated');
+					res.send(restaurant);
 
                 }else{
 					console.log('Error' + err);
@@ -126,7 +130,8 @@ module.exports = function (app) {
 	app.post('/restaurants', ensureAuth, addRestaurantR);
 	app.put('/restaurants/:id', ensureAuth,ensureOwner ,updateRestaurant);
 	app.delete('/restaurants/:id',ensureAuth ,ensureOwner , deleteRestaurant);
-
+	
+	
 	//nuevo ruter para buscar por una exprecion regular
 		app.get('/restaurants/:name', findByName);
 		//PREGUNTAR A JAVIER COMO ES POIBLE Q DESPUES DE HACER UNA PETICION AJAX POR GET BY ALGO SEPA QUE ESE ALG ES UN ID Y NO UN NANR

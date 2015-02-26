@@ -59,20 +59,22 @@
 
     },
     pushComment : function (){
-      
-
+      //aqui meter los datos de la funcioo ruter que qiueda pendiente
       var comment = {
                         picture:this.restaurant.picture,
                         link : "https://plus.google.com/116476237660032067797",
                         name : "mauri",
                         comment : this.$.comment.value
                      };
-       
-      console.log("comentario de creater"+comment);
-      this.fire('comment-created', comment); 
+
+       this.restaurant.comments.unshift(comment);
+
+    
+
+      this.fire('comment-created', this.restaurant); 
 
         this.clearComennt();
-         this.openToggle();
+        this.openToggle();
 
     },
     

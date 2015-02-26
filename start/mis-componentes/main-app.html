@@ -146,7 +146,7 @@ background-color: teal;
        <core-animated-pages selected="{{route}}" valueattr="hash" transitions="slide-from-right">
             <section hash="restaurants" layout vertical center-center>
 
-            <restaurant-list id="restaurantList"  show="restaurants" restaurantList="{{restaurant_model.restaurants}}" on-favorite-updateddd="{{handleFavoriteChanged}}" on-restaurant-deleted="{{handleRestaurantDelete}}" on-restaurant-update="{{handleRestaurantUpdated}}"
+            <restaurant-list id="restaurantList"  show="restaurants" restaurantList="{{restaurant_model.restaurants}}" on-favorite-updateddd="{{handleFavoriteChanged}}" on-restaurant-deleted="{{handleRestaurantDelete}}" on-restaurant-update="{{handleRestaurantUpdated}}" on-comment-created="{{handlePushComment}}"
             ></restaurant-list>
 
             </section>
@@ -193,11 +193,13 @@ background-color: teal;
         this.login =this.$.login;
         this.loginLogged = this.$.login.logged;
         loadPages.bind(this)();
-       
+       /*
         //esta funcion sirve oara escuchar eventos
         this.addEventListener('comment-created',function(event, detail, sender){
-          console.log(event.detail);
-        }.bind(this))
+          console.log(event.detail.comments[0]+"**************************************************");
+
+          //this.restaurant_model.updateRestaurant(detail);
+        }.bind(this))*/
       },
       
      goHome: function(){
@@ -233,6 +235,7 @@ background-color: teal;
       handleLogout: function(){
         this.$.add.icon="perm-identity";
         this.login.logout();
+         window.location.hash = '#restaurants';
       },
       menuItemSelected: function (e, detail, sender) {
           if (detail.isSelected) {
@@ -243,7 +246,8 @@ background-color: teal;
 
       },
       handlePushComment : function(event,detail){
-      console.log("****************************+"+detail);
+      
+      this.restaurant_model.updateRestaurant(detail);
     }
  });
 

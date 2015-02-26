@@ -28,12 +28,12 @@
 		newRestaurant: function(detail) {
 			doAjax({type: 'POST', data: JSON.stringify(detail)}, function(data,status) {
 				restaurants.unshift(data);
-				console.log(data.picture);
+			
 			}.bind(this));
 		},
 		deleteRestaurant: function(restaurant){
 			doAjax({type: 'DELETE', url: restaurant._id}, function(data,status){
-				console.log("+++++++++++++++++++++++++++++++++++++++++++++");
+				
 				var i = this.restaurants.indexOf(data);
 
 						if (i >= 0) {
@@ -78,17 +78,23 @@
 		},
 
 		updateRestaurant: function(data){
-			alert(data.owner);
+
 				var url =  data._id;
-				var i=0;
-			while( restaurants[i]._id != data._id && i<restaurants.length){
-				console.log(restaurants[i]._id +"==="+ data._id);
-				i++;
-			}
-			if(localStorage.token){
-			restaurants[i]=data;	
-			}
-				doAjax({type: 'PUT', url: url, data: JSON.stringify(data)}, function() {}.bind(this));
+			
+						var i=0;
+						while(restaurants[i]._id != data._id && i<restaurants.length){
+							
+							i++;
+						}
+						if(localStorage.token){
+						this.restaurants[i]=data;	
+						}
+
+		
+				doAjax({type: 'PUT', url: url, data: JSON.stringify(data)}, function(data,status) {
+						
+
+				}.bind(this));
 
 
 

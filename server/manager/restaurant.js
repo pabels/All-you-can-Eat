@@ -22,6 +22,8 @@ function findName(restaurantName, callback){
 
 
 function updateRestaurant(restaurantId, newRestaurant, callback){
+	
+
 	daoRestaurant.updateRestaurant(restaurantId, newRestaurant, callback);
 }
 

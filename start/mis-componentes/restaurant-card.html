@@ -49,45 +49,49 @@
     #card{
       border-radius: 20%;
     }
+    
     paper-toggle-button::shadow [checked] .toggle-ink {
-  color: teal;
-}
+     color: teal;
+    }
    
     
    </style>
     <div class="card-header" layout horizontal center>
       <img src={{restaurantObject.image}} >
-        <div id="muevete">
+       <div id="muevete">
             <h1>{{restaurantObject.name}}</h1>
             <p>{{restaurantObject.paragraph}}</p>
             <paper-toggle-button on-change="{{fireOpen}}"></paper-toggle-button>
-
-         </div>
+       </div>
     </div>
 
     <restaurant-controls restaurant="{{restaurantObject}}"  hidden?="{{!loggedon}}"></restaurant-controls>
-      <dialog-update  id="dialog_update" restaurant="{{restaurantObject}}"></dialog-update>
+     <dialog-update  id="dialog_update" restaurant="{{restaurantObject}}"></dialog-update>
 
 
-<core-collapse id="collapse1" class="" style="overflow: hidden; height: auto;">
- <create-comment restaurant="{{restaurantObject}}"></create-comment>
-  
-    <comments-list id="comentList"></comments-list>
-    
-
-</core-collapse>  
+   <core-collapse id="collapse1" class="" style="overflow: hidden; height: auto;">
+     <create-comment restaurant="{{restaurantObject}}"></create-comment>
+     <comments-list id="comentList" comments="{{restaurantObject.comments}}"></comments-list>
+   </core-collapse>  
      
 
 
 
 </template>
   <script>
-
+  var profiler = {};
   Polymer({
      loggedon: true,
+     
       
     created: function(){
         localStorage.token !== undefined ? this.loggedon = true : this.loggedon = false;
+        doAjax({url : '/profile'}, function(data) {
+
+          console.log(data+"**********************************************************");
+          profiler = data;
+          this.profiler = profiler; // sirve para q la var restaurants sea accesible desde fuera de restaurant model
+        }.bind(this));
       
      },
 
@@ -98,14 +102,6 @@
      },
 
     ready : function(){
-
-        this.addEventListener('comment-created',function(event, detail, sender){
-          console.log(event.detail+"SOY REST CART ********************************");
-          this.$.comentList.comments.unshift(event.detail);
-        }.bind(this))
-      
-
-
      
     },
     openDialog : function(){
@@ -113,13 +109,8 @@
       this.$.dialog_update.openningDialog();
     },
 
-    handlePushComment : function(event,detail){
-      console.log("****************************+"+detail);
-
-
-    },
     fireOpen : function(){
-      console.log("cerveza cerveza huuuuuuuuuuuu");
+   
       this.open();
     }
    
