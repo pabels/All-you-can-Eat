@@ -1,6 +1,10 @@
 var daoRestaurant = require('../dao/restaurant');
 
-//var RestaurantR = require('../../model/restaurant.js');
+
+
+function createFavorite(restaurant, callback) {
+	daoRestaurant.createFavorite(restaurant, callback);
+}
 
 
 function create(restaurant, callback) {
@@ -9,6 +13,11 @@ function create(restaurant, callback) {
 
 function findAll(callback) {
 	daoRestaurant.findAll(callback);
+
+}
+
+function findFavorites(owner, callback) {
+	daoRestaurant.findFavorites(owner, callback);
 
 }
 
@@ -31,10 +40,17 @@ function deleteRestaurant(restaurantId, callback){
 	daoRestaurant.deleteRestaurant(restaurantId, callback);
 }
 
+function deleteRestaurantF(restaurantId, callback){
+	daoRestaurant.deleteRestaurantF(restaurantId, callback);
+}
+
 module.exports = {
+	createFavorite: createFavorite,
 	create: create,
+	findFavorites: findFavorites,
 	findAll: findAll,
 	findById: findById,
 	updateRestaurant: updateRestaurant,
-	deleteRestaurant: deleteRestaurant
+	deleteRestaurant: deleteRestaurant,
+	deleteRestaurantF: deleteRestaurantF
 };

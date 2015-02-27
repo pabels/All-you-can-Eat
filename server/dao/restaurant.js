@@ -1,5 +1,12 @@
 
-var RestaurantR = require('../../model/restaurant.js');
+var RestaurantR = require('../../model/restaurant.js').resraurantr;
+var RestaurantF = require('../../model/restaurant.js').resraurantf;
+
+function createFavorite(restaurant, callback) {
+	var restaurantInstance =  new RestaurantF(restaurant);
+	restaurantInstance.save (callback);
+}
+
 
 function create(restaurant, callback) {
 	var restaurantInstance =  new RestaurantR(restaurant);
@@ -10,11 +17,16 @@ function findAll(callback) {
 	RestaurantR.find({}, callback);
 }
 
+function findFavorites(ownerFavorite, callback) {
+	RestaurantF.where('ownerFavorite').in([ownerFavorite]).exec(callback);
+	
+}
+
 function findById(restaurantId, callback){
 	RestaurantR.findById(restaurantId, callback);
 }
 
-////////////////////////////aqui ver el buscar de la documentacion de monguse/////////////////////////////7
+////////////////////////////aqui ver el buscar de la documentacion de monguse
 function findName(restaurantName, callback){
 	RestaurantR.find(restaurantName, callback);
 }
@@ -29,11 +41,18 @@ function deleteRestaurant(restaurantId,callback) {
 	RestaurantR.find({_id: restaurantId}).remove(callback);
 }
 
+function deleteRestaurantF(restaurantId,callback) {
+	RestaurantF.find({_id: restaurantId}).remove(callback);
+}
 
 module.exports = {
+	createFavorite: createFavorite,
 	create: create,
+	findFavorites: findFavorites,
 	findAll: findAll,
 	findById: findById,
 	updateRestaurant: updateRestaurant,
-	deleteRestaurant: deleteRestaurant
+	deleteRestaurant: deleteRestaurant,
+	deleteRestaurantF: deleteRestaurantF
+
 };

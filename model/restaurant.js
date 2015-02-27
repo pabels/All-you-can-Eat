@@ -16,6 +16,23 @@ var RestaurantR = new Schema({
  
 });
 
+var RestaurantF = new Schema({
+  name:      {type : String},
+  paragraph: {type: String},
+  image:    {type: String},
+  type:     {type: String },
+  menu:      {type: String },
+  direction: {type: String },
+  favoriteCard: {type: Boolean },
+  owner : {type: String},
+  picture : {type: String},
+  comments: {type: []},
 
+  ownerFavorite: {type: String}
+ 
+});
 
-module.exports = mongoose.model('RestaurantR', RestaurantR);
+module.exports = {
+	resraurantr: mongoose.model('RestaurantR', RestaurantR),
+	resraurantf: mongoose.model('RestaurantF', RestaurantF)
+};

@@ -1,10 +1,39 @@
 module.exports = function (app) {
 
-	//var RestaurantR = require('../../model/restaurant.js');
+	
 	var restaurantManager = require('../manager/restaurant');
 	var ensureAuth = require('../middleware/sec').ensureAuthenticated;
-			var ensureOwner = require('../middleware/sec').ensureOwner;
+	var ensureOwner = require('../middleware/sec').ensureOwner;
 
+
+function addRestaurantF(req, res) {
+		var rest={
+			name:  req.body.name,
+		 	paragraph: req.body.paragraph,
+  			image:    req.body.image,
+  			type:  req.body.type,
+  			menu:  req.body.menu,
+  			direction: req.body.direction,
+  			favoriteCard: req.body.favoriteCard,
+  			owner: req.body.id ,
+  			picture : req.body.picture ,
+  			comments : [],
+  			ownerFavorite: req.body.ownerFavorite
+  			//req.user.id
+		};
+
+		restaurantManager.createFavorite(rest, function(err, data) { 
+
+			if(!err){
+			    console.log('RestaurantF created');
+				res.send(data);
+            }else{
+				console.log('Error' + err);
+			    res.status(500).send('Error');
+			}
+        });
+
+	}
 
 	function addRestaurantR(req, res) {
 		var rest={
@@ -15,7 +44,7 @@ module.exports = function (app) {
   			menu:  req.body.menu,
   			direction: req.body.direction,
   			favoriteCard: req.body.favoriteCard,
-  			owner: req.user.id ,
+  			owner: req.user.id,
   			picture : req.user._json.picture ,
   			comments : []
 		};
@@ -49,6 +78,17 @@ module.exports = function (app) {
         });
     }
 
+function findFavorites(req, res){
+		restaurantManager.findFavorites(req.params.id, function(err, restaurants ) { 
+			if(!err){
+				console.log('Favorite restaurants  retrieved '+ req.params.id);
+				res.send(restaurants);
+			}else{
+                console.log('Error' + err);
+			    res.status(500).send('Error');
+			}
+        });
+}
 
 	function findById(req, res){
 		var restaurantId = req.params.id;
@@ -124,13 +164,31 @@ module.exports = function (app) {
 		});
 	}
 
+	deleteRestaurantF = function(req, res){
+		//el problema esque el ide se pasa por params
+		restaurantId = req.params.id ;
+		restaurantManager.deleteRestaurantF(restaurantId,function(err,data){
+			if(!err){
+				console.log('Deleting favorite restaurant by id');
+				res.send(data);
+				console.log('Restaurant favorite deleted');
+			}else{
+                console.log('Error' + err);
+			    res.status(500).send('Error');
+			}
+		});
+	}
+
     //rutes
+
+    app.post('/restaurants/favorites', ensureAuth, addRestaurantF);
+    app.get('/restaurants/favorites/:id',ensureAuth, findFavorites);
 	app.get('/restaurants', findAllRestaurantRs);
 	app.get('/restaurants/:id', findById);
 	app.post('/restaurants', ensureAuth, addRestaurantR);
 	app.put('/restaurants/:id', ensureAuth ,updateRestaurant);
 	app.delete('/restaurants/:id',ensureAuth ,ensureOwner , deleteRestaurant);
-	
+	app.delete('/restaurants/favorites/:id',ensureAuth, deleteRestaurantF);
 	
 	//nuevo ruter para buscar por una exprecion regular
 		app.get('/restaurants/:name', findByName);
