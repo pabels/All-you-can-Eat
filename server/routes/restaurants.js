@@ -128,7 +128,7 @@ module.exports = function (app) {
 	app.get('/restaurants', findAllRestaurantRs);
 	app.get('/restaurants/:id', findById);
 	app.post('/restaurants', ensureAuth, addRestaurantR);
-	app.put('/restaurants/:id', ensureAuth,ensureOwner ,updateRestaurant);
+	app.put('/restaurants/:id', ensureAuth ,updateRestaurant);
 	app.delete('/restaurants/:id',ensureAuth ,ensureOwner , deleteRestaurant);
 	
 	

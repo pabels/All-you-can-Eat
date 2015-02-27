@@ -8,13 +8,16 @@
         border-width: 50px; 
 
       }
+     
+
 
     </style>
      <template repeat="{{rest in restaurantList}}">
-      
-      <div id="restaurant-list" on-restaurant-created="{{ready}}">
-      <restaurant-card  restaurantObject="{{rest}}" hidden?="{{!rest.favoriteCard && show =='Favorites'}}" ></restaurant-card>
-      </div>
+     
+        <div id="restaurant-list" on-restaurant-created="{{ready}}">
+          <restaurant-card  restaurantObject="{{rest}}" hidden?="{{!rest.favoriteCard && show =='Favorites'}}" ></restaurant-card>
+        </div>
+     
 
     </template> 
    

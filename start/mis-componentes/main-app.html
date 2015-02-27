@@ -26,6 +26,8 @@
 <link rel="import" href="../../bower_components/paper-toggle-button/paper-toggle-button.html">
 <link rel="import" href="./comments-list.html">
 <link rel="import" href="./create-comment.html">
+<link rel="import" href="./top-restaurant.html">
+
 
 
 
@@ -86,8 +88,7 @@ background-color: teal;
         font-size: 24px;
       }
 
-     
-      
+
       @media all and (max-width: 480px) {
         core-animated-pages {
           width: 100%;
@@ -110,9 +111,15 @@ background-color: teal;
         margin-right: -10px;
       }
       #home:link{
-        text-decoration:none;  
+        text-decoration:none; 
 
 
+      }
+      @media only screen and (max-width: 900px) {
+        .container {
+          min-width: 85%;
+          margin: 5%;
+        }
       }
 
       
@@ -156,8 +163,18 @@ background-color: teal;
                 <restaurant-list id="res" restaurantList="{{restaurant_model.restaurants}}" show="Favorites"></restaurant-list>
             </section >
 
-            <section  hash="top-10">
-               <h1>Ranking of restaurants with more votes</h1>
+            <section  hash="top-10" layout vertical center-center>
+            
+                   <template repeat ="{{restaurant_model.topRestaurants}}">
+                   
+                    <div>
+                      <top-restaurant id="topRest"restaurantObject="{{}}"></top-restaurant>
+                    </div>
+                     
+                  </template>
+     
+   
+
             </section>
             <section  hash="create">
               <formulario-register on-restaurant-created="{{handleCreateRestaurant}}" > </formulario-register>
@@ -174,7 +191,7 @@ background-color: teal;
           this.pages = [
             {name: 'Restaurants', hash: 'restaurants'},
             {name: 'Favourites', hash: 'favorites'},
-            {name: 'Top-10', hash: 'top-10'},
+            {name: 'Top-restaurant', hash: 'top-10'},
             {name: 'Create', hash: 'create'}
             
             ];
@@ -246,7 +263,8 @@ background-color: teal;
 
       },
       handlePushComment : function(event,detail){
-      
+      console.log(detail);
+
       this.restaurant_model.updateRestaurant(detail);
     }
  });

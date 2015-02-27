@@ -1,4 +1,4 @@
-<polymer-element name="create-comment" attributes="restaurant" >
+<polymer-element name="create-comment" attributes="restaurant profile" >
 
  <template>
    <style>
@@ -51,6 +51,7 @@
 
     ready : function(){
 
+
      
     },
 
@@ -60,12 +61,14 @@
     },
     pushComment : function (){
       //aqui meter los datos de la funcioo ruter que qiueda pendiente
+
       var comment = {
-                        picture:this.restaurant.picture,
-                        link : "https://plus.google.com/116476237660032067797",
-                        name : "mauri",
+                        picture:this.profile.picture,
+                        link : this.profile.link,
+                        name : this.profile.given_name,
                         comment : this.$.comment.value
                      };
+
 
        this.restaurant.comments.unshift(comment);
 

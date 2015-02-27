@@ -20,7 +20,9 @@ app.get('/', function (req, res) {
 }); 
 
 routes = require("./routes/restaurants")(app),
-routes = require("./routes/auth")(app);
+routes = require("./routes/auth")(app),
+routes = require("./routes/user")(app);
+
 
 mongoose.connect('mongodb://localhost/restaurants', function(err, res) {
     if(err) {

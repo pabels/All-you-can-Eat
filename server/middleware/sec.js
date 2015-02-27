@@ -5,7 +5,6 @@ var dao = require('../dao/restaurant');
 
 function ensureAuthenticated(req, res, next) {
 
-
 	var reqAuth = req.headers.authorization;
 
 	if (!reqAuth) {

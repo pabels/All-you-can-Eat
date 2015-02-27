@@ -11,7 +11,8 @@
 
 	var base = '/restaurants/';
 	var restaurants;
-	
+	var topRestaurants;
+
 	Polymer('restaurant-model', {
 		created: function() {
 			if (!restaurants) {
@@ -20,7 +21,14 @@
 
 					data.reverse();
         			restaurants= data;
-					this.restaurants = restaurants; // sirve para q la var restaurants sea accesible desde fuera de restaurant model
+        			topRestaurants = data.map(function(rest){
+        				if(rest.comments.length > 2){
+        					return rest;
+        				}
+        			});
+					this.restaurants = restaurants; 
+					this.topRestaurants = topRestaurants;
+					// sirve para q la var restaurants sea accesible desde fuera de restaurant model
 				}.bind(this));
 			}
 		},
@@ -52,30 +60,7 @@
 		
 		},
 
-		setRestaurant: function(restaurantFav) {
-			
-			var url =  restaurantFav._id;
-			var data = {
-				name : restaurantFav.name,
-		        paragraph : restaurantFav.paragraph,
-		        type: restaurantFav.type,
-		        direction: restaurantFav.direction,
-		        menu:restaurantFav.menu,
-		        favoriteCard:  true,
-		        _id : restaurantFav._id,
-
-			};
-			var i=0;
-			while( restaurants[i]._id != data._id && i<restaurants.length){
-				console.log(restaurants[i]._id +"==="+ data._id);
-				i++;
-			}
-			if(localStorage.token){
-			restaurants[i]=data;	
-			}
-			
-			doAjax({type: 'PUT', url: url, data: JSON.stringify(data)}, function() {}.bind(this));
-		},
+		
 
 		updateRestaurant: function(data){
 
@@ -89,6 +74,12 @@
 						if(localStorage.token){
 						this.restaurants[i]=data;	
 						}
+					
+						this.topRestaurants = this.restaurants.map(function(rest){
+        				if(rest.comments.length > 2){
+        					return rest;
+        				}
+        				});
 
 		
 				doAjax({type: 'PUT', url: url, data: JSON.stringify(data)}, function(data,status) {
