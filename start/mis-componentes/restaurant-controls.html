@@ -1,6 +1,6 @@
 
 
-<polymer-element name="restaurant-controls" attributes="restaurant">
+<polymer-element name="restaurant-controls" attributes="restaurant isMine">
  <template>
    <style>
  core-icon-button{
@@ -33,9 +33,9 @@
 
 
    </style>
-   <core-icon-button id="favicon" icon="star"  > </core-icon-button>
-    <core-icon-button  id="create" icon="create" on-tap="{{fireEdit}}"></core-icon-button>
-    <core-icon-button id="delete" icon="delete" on-tap="{{fireDeleted}}"></core-icon-button>
+   <core-icon-button id="favicon" icon="star" hidden?="{{!loggedon}}" on-click="{{fireFavorite}}" > </core-icon-button>
+    <core-icon-button  id="create" icon="create" hidden?="{{isMine}}" on-tap="{{fireEdit}}"></core-icon-button>
+    <core-icon-button id="delete" icon="delete"  hidden?="{{isMine}}" on-tap="{{fireDeleted}}"></core-icon-button>
     <img id="pictureOwner" src="{{restaurant.picture}}">
 
 
@@ -43,6 +43,8 @@
  </template>
  <script>
 Polymer({
+
+   loggedon: true,
 
       ready : function(){
       	 //this.$.favicon.style.color='black';
@@ -52,6 +54,9 @@ Polymer({
           }else{
             this.$.favicon.style.color='black';
           }
+
+            localStorage.token !== undefined ? this.loggedon = true : this.loggedon = false;
+        
         },
         
 	 fireEdit: function(){
@@ -60,7 +65,11 @@ Polymer({
            },
      fireDeleted: function(){
           this.fire('restaurant-deleted', this.restaurant);           
-           }
+           },
+
+       fireFavorite : function (){
+        this.fire('new-favorite',this.restaurant);
+       }    
            
 
 

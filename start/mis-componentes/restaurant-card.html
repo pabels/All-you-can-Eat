@@ -1,5 +1,5 @@
 
-<polymer-element name="restaurant-card" attributes="restaurantObject"  on-restaurant-edited="{{openDialog}}"  >
+<polymer-element name="restaurant-card" attributes="restaurantObject"  on-restaurant-edited="{{openDialog}}" on-new-favorite="{{createFavorite}}" >
 
   <template>
    <style>
@@ -80,7 +80,7 @@
            </div>
         </div>
 
-        <restaurant-controls  class="controls" restaurant="{{restaurantObject}}"  hidden?="{{!isMine}}"></restaurant-controls>
+        <restaurant-controls  class="controls" restaurant="{{restaurantObject}}"  isMine="{{!isMine}}"></restaurant-controls>
          <dialog-update  id="dialog_update" restaurant="{{restaurantObject}}"></dialog-update>
 
 
@@ -98,7 +98,7 @@
 
   Polymer({
      loggedon: true,
-     
+    
       
     created: function(){
         localStorage.token !== undefined ? this.loggedon = true : this.loggedon = false;
@@ -123,6 +123,7 @@
 
          
             var userId=res.id;
+            this.userId=userId;
             this.profiler = res._json;
             this.isMine = (userId === this.restaurantObject.owner);
            }.bind(this),
@@ -141,7 +142,18 @@
     fireOpen : function(){
    
       this.open();
+    },
+    createFavorite : function(event,detail){
+
+   detail.ownerFavorite = this.userId;
+   
+  
+   this.fire('to-favorite',detail);
+
+
+
     }
+
    
   });
 

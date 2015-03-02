@@ -153,21 +153,21 @@ background-color: teal;
        <core-animated-pages selected="{{route}}" valueattr="hash" transitions="slide-from-right">
             <section hash="restaurants" layout vertical center-center>
 
-            <restaurant-list id="restaurantList"  show="restaurants" restaurantList="{{restaurant_model.restaurants}}" on-favorite-updateddd="{{handleFavoriteChanged}}" on-restaurant-deleted="{{handleRestaurantDelete}}" on-restaurant-update="{{handleRestaurantUpdated}}" on-comment-created="{{handlePushComment}}"
+            <restaurant-list id="restaurantList"  show="restaurants" restaurantList="{{restaurant_model.restaurants}}" on-to-favorite="{{handleFavorite}}" on-restaurant-deleted="{{handleRestaurantDelete}}" on-restaurant-update="{{handleRestaurantUpdated}}" on-comment-created="{{handlePushComment}}"
             ></restaurant-list>
 
             </section>
 
             <section  hash="favorites">
                  
-                <restaurant-list id="res" restaurantList="{{restaurant_model.restaurants}}" show="Favorites"></restaurant-list>
+                <restaurant-list id="res" restaurantList="{{restaurant_model.restaurants}}" show="Favorites" ></restaurant-list>
             </section >
 
             <section  hash="top-10" layout vertical center-center>
             
                    <template repeat ="{{restaurant_model.topRestaurants}}">
                    
-                    <div>
+                    <div id="top" style="border:3px;">
                       <top-restaurant id="topRest"restaurantObject="{{}}"></top-restaurant>
                     </div>
                      
@@ -263,8 +263,11 @@ background-color: teal;
 
       },
       handlePushComment : function(event,detail){
-      console.log(detail);
-
+    
+      this.restaurant_model.updateRestaurant(detail);
+    },
+     handleFavorite : function(event,detail){
+    console.log(detail);
       this.restaurant_model.updateRestaurant(detail);
     }
  });
