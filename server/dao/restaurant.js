@@ -45,6 +45,13 @@ function deleteRestaurantF(restaurantId,callback) {
 	RestaurantF.find({_id: restaurantId}).remove(callback);
 }
 
+function searchRestaurants(search, callback) {
+	console.log("")
+
+	RestaurantR.find({name: new RegExp('^'+search+'$')},callback);
+  
+}
+
 module.exports = {
 	createFavorite: createFavorite,
 	create: create,
@@ -53,6 +60,7 @@ module.exports = {
 	findById: findById,
 	updateRestaurant: updateRestaurant,
 	deleteRestaurant: deleteRestaurant,
-	deleteRestaurantF: deleteRestaurantF
+	deleteRestaurantF: deleteRestaurantF,
+	searchRestaurants : searchRestaurants
 
 };

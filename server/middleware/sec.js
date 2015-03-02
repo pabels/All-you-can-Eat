@@ -23,7 +23,7 @@ function ensureAuthenticated(req, res, next) {
 		}
 		req.user = decode.profile;
 		req.user.picture = req.user._json.picture;
-		console.log(req.user);
+		
 		req.token = token;
 		next(null);
 	});
@@ -38,7 +38,6 @@ function ensureOwner(req, res, next) {
 	//aqui esta el problema en el user ide que es undefined
 	var	restaurantId = req.params.id ;
 	var userId = req.user.id;
-	//console.log(userId+"esta es la ide++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 	
 	
 	
@@ -53,13 +52,11 @@ function ensureOwner(req, res, next) {
 			return res.status(500).send('error');
 			console.log('ensureOwner error: ' + err);
 		}
-	//	console.log(restaurant.owner+"esto es el owner********************************************************** ")
 
 		if (!restaurant) {
   		console.log('invalid restaurant');
 			return res.status(500).send('invalid restaurant');
 		}
-		//aqui esta ek problema
 		if (restaurant.owner !== userId) {
 			console.log('invalid owner restaurant[' + restaurant.owner + ' logged user[' + userId + ']');
 			return res.status(500).send('invalid owner');

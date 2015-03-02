@@ -12,6 +12,9 @@
 	var base = '/restaurants/';
 	var restaurants;
 	var topRestaurants;
+	var favRestaurants;
+	var userId;
+
 
 	Polymer('restaurant-model', {
 		created: function() {
@@ -31,6 +34,42 @@
 					// sirve para q la var restaurants sea accesible desde fuera de restaurant model
 				}.bind(this));
 			}
+
+			///////////////////optengo el  ide del usuario calback hell/////////////////////////////////
+
+			if (!favRestaurants) {
+				  doProfile({},function(res){
+					            var Id=res.id;
+					            this.userId=Id;
+					            				doAjax({url : "favorites/"+this.userId}, function(data) {
+														data.reverse();
+									        			favRestaurants= data;
+									        			this.favRestaurants=favRestaurants;
+									        			console.log(favRestaurants+"********dsfdfvsfdv");
+						        			
+	
+												}.bind(this)); 	
+					            
+					           }.bind(this),function(){console.log('error');}.bind(this));
+
+ 		 ///////////////////////////////////////lanzo el get de favs con el ide de ese usuario////////////
+
+						
+
+
+
+
+
+
+
+
+					     
+			}        
+
+					      
+
+
+
 		},
 
 		newRestaurant: function(detail) {
@@ -89,7 +128,43 @@
 
 
 
-		}
+		},
+		addRestaurantF : function (detail){
+			console.log(detail);
+			doAjax({type: 'POST',url: "favorites" ,data: JSON.stringify(detail)}, function(data,status) {
+
+				this.favRestaurants.unshift(data);
+					
+			}.bind(this));
+
+
+
+		},
+
+		deleteFavorite: function(detail){
+			
+						var i = this.favRestaurants.indexOf(detail);
+						if (i >= 0) {
+							this.favRestaurants.splice(i, 1);
+						}
+
+
+			doAjax({type: 'DELETE', url : "favorites/"+detail._id}, function(data,status) {
+				console.log(data);
+
+				var i = this.favRestaurants.indexOf(detail);
+						if (i >= 0) {
+							this.favRestaurants.splice(i, 1);
+						}
+			
+				}.bind(this));
+			
+
+			}
+
+
+
+			
 	});
 }());
     </script>

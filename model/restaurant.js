@@ -27,7 +27,6 @@ var RestaurantF = new Schema({
   owner : {type: String},
   picture : {type: String},
   comments: {type: []},
-
   ownerFavorite: {type: String}
  
 });

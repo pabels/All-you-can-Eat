@@ -28,7 +28,7 @@
 <link rel="import" href="./create-comment.html">
 <link rel="import" href="./top-restaurant.html">
 
-
+<link rel="import" href="./restaurant-Favcard.html">
 
 
 
@@ -120,6 +120,8 @@ background-color: teal;
           min-width: 85%;
           margin: 5%;
         }
+
+      
       }
 
       
@@ -158,12 +160,22 @@ background-color: teal;
 
             </section>
 
-            <section  hash="favorites">
+            <section  hash="favorites" on-delete-favorite="{{handleDeleteFavorite}}">
+
+            <template repeat ="{{restaurant_model.favRestaurants}}">
+                   
+                    <div class="fav">
+                      <restaurant-Favcard id="topRest"restaurantObject="{{}}"></restaurant-Favcard>
+                    </div>
+                     
+              </template>
+                    
+     
                  
-                <restaurant-list id="res" restaurantList="{{restaurant_model.restaurants}}" show="Favorites" ></restaurant-list>
+              
             </section >
 
-            <section  hash="top-10" layout vertical center-center>
+            <section  hash="top-10" >
             
                    <template repeat ="{{restaurant_model.topRestaurants}}">
                    
@@ -267,8 +279,12 @@ background-color: teal;
       this.restaurant_model.updateRestaurant(detail);
     },
      handleFavorite : function(event,detail){
-    console.log(detail);
-      this.restaurant_model.updateRestaurant(detail);
+      this.restaurant_model.addRestaurantF(detail);
+    },
+    handleDeleteFavorite : function(event,detail){
+      
+      this.restaurant_model.deleteFavorite(detail);
+
     }
  });
 

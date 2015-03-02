@@ -9,7 +9,6 @@ var jwt = require('jsonwebtoken');
 
 module.exports = function (app) {
 
-console.log("***************")
 
 	/* ROUTES */
 	app.get('/login', passportLogin());

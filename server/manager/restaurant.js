@@ -44,6 +44,13 @@ function deleteRestaurantF(restaurantId, callback){
 	daoRestaurant.deleteRestaurantF(restaurantId, callback);
 }
 
+
+function searchRestaurants(search, callback) {
+
+	daoRestaurant.searchRestaurants(search, callback);
+
+}
+
 module.exports = {
 	createFavorite: createFavorite,
 	create: create,
@@ -52,5 +59,6 @@ module.exports = {
 	findById: findById,
 	updateRestaurant: updateRestaurant,
 	deleteRestaurant: deleteRestaurant,
-	deleteRestaurantF: deleteRestaurantF
+	deleteRestaurantF: deleteRestaurantF,
+	searchRestaurants:searchRestaurants
 };

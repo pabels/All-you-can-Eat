@@ -19,7 +19,7 @@ function addRestaurantF(req, res) {
   			picture : req.body.picture ,
   			comments : [],
   			ownerFavorite: req.body.ownerFavorite
-  			//req.user.id
+  	
 		};
 
 		restaurantManager.createFavorite(rest, function(err, data) { 
@@ -79,6 +79,7 @@ function addRestaurantF(req, res) {
     }
 
 function findFavorites(req, res){
+
 		restaurantManager.findFavorites(req.params.id, function(err, restaurants ) { 
 			if(!err){
 				console.log('Favorite restaurants  retrieved '+ req.params.id);
@@ -178,10 +179,24 @@ function findFavorites(req, res){
 			}
 		});
 	}
+	function searchRestaurants(req, res){
+		
+
+		restaurantManager.searchRestaurants(req.params.search, function(err, restaurants ) { 
+
+			if(!err){
+				console.log('Favorite restaurants  retrieved '+ req.params.search);
+				res.send(restaurants);
+			}else{
+                console.log('Error' + err);
+			    res.status(500).send('Error');
+			}
+        });
+	}
 
     //rutes
 
-    app.post('/restaurants/favorites', ensureAuth, addRestaurantF);
+    app.post('/restaurants/favorites', ensureAuth , addRestaurantF);
     app.get('/restaurants/favorites/:id',ensureAuth, findFavorites);
 	app.get('/restaurants', findAllRestaurantRs);
 	app.get('/restaurants/:id', findById);
@@ -191,7 +206,7 @@ function findFavorites(req, res){
 	app.delete('/restaurants/favorites/:id',ensureAuth, deleteRestaurantF);
 	
 	//nuevo ruter para buscar por una exprecion regular
-		app.get('/restaurants/:name', findByName);
+		app.get('/restaurants/search/:search', searchRestaurants);
 		//PREGUNTAR A JAVIER COMO ES POIBLE Q DESPUES DE HACER UNA PETICION AJAX POR GET BY ALGO SEPA QUE ESE ALG ES UN ID Y NO UN NANR
 
 };

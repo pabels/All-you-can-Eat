@@ -68,6 +68,12 @@ Polymer({
            },
 
        fireFavorite : function (){
+
+         this.$.favicon.style.color='red';
+         window.location.hash = '#favorites';
+
+
+
         this.fire('new-favorite',this.restaurant);
        }    
            
