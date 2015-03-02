@@ -160,6 +160,21 @@
 				}.bind(this));
 			
 
+			},
+			searchRestaurants : function (search){
+
+				doAjax({url : "search/"+search}, function(data) {
+														data.reverse();
+									        			searchRestaurants= data;
+									        			this.searchRestaurants=searchRestaurants;
+	
+												}.bind(this)); 	
+
+
+
+
+
+
 			}
 
 

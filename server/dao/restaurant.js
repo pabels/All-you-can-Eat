@@ -48,7 +48,7 @@ function deleteRestaurantF(restaurantId,callback) {
 function searchRestaurants(search, callback) {
 	console.log("")
 
-	RestaurantR.find({name: new RegExp('^'+search+'$')},callback);
+	RestaurantR.find({name: new RegExp('^'+search+'+?')},callback);
   
 }
 

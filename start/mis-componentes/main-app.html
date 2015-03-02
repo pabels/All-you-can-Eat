@@ -27,7 +27,6 @@
 <link rel="import" href="./comments-list.html">
 <link rel="import" href="./create-comment.html">
 <link rel="import" href="./top-restaurant.html">
-
 <link rel="import" href="./restaurant-Favcard.html">
 
 
@@ -145,10 +144,16 @@ background-color: teal;
       </core-menu>
     </nav>
      <core-toolbar  tool flex id ="cabezera">
-      <div flex ></div>
-        <search-button ></search-button>
+      <div flex >
+     
+        
+      </div>
+        <paper-input label="search" id="search" floatingLabel="true"> </paper-input>
+              <search-button on-click="{{search}}"></search-button>
+
         <core-icon-button icon="settings-power" on-click="{{handleLogout}}"></core-icon-button>
         <core-icon-button id="add" icon="perm-identity" on-click="{{fireLogin}}" ></core-icon-button>
+
     </core-toolbar>
 
      <div layout horizontal center-center fit>
@@ -191,6 +196,24 @@ background-color: teal;
             <section  hash="create">
               <formulario-register on-restaurant-created="{{handleCreateRestaurant}}" > </formulario-register>
             </section>
+
+             <section  hash="search">
+
+              <template repeat ="{{restaurant_model.searchRestaurants}}">
+                   
+                    <div id="search" style="border:3px;">
+                      <restaurant-card id="topRest"restaurantObject="{{}}"></restaurant-card>
+                    </div>
+                     
+                  </template>
+     
+             
+
+
+
+
+
+            </section>
             
        </core-animated-pages>
      </div>
@@ -204,7 +227,8 @@ background-color: teal;
             {name: 'Restaurants', hash: 'restaurants'},
             {name: 'Favourites', hash: 'favorites'},
             {name: 'Top-restaurant', hash: 'top-10'},
-            {name: 'Create', hash: 'create'}
+            {name: 'Create', hash: 'create'},
+            {name: 'Search', hash: 'search'}
             
             ];
         this.route = this.route || DEFAULT_ROUTE;
@@ -285,7 +309,16 @@ background-color: teal;
       
       this.restaurant_model.deleteFavorite(detail);
 
-    }
+    },
+    search : function (){
+
+  this.search = this.$.search.value;
+    console.log(this.search+"++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+
+     this.restaurant_model.searchRestaurants(this.search);
+      window.location.hash = '#search';
+      this.$.search.value="";
+    } 
  });
 
 }());
